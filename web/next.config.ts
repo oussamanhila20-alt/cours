@@ -32,15 +32,7 @@ function mergeParentDotenvIfMonorepoWeb() {
 }
 mergeParentDotenvIfMonorepoWeb();
 
-/**
- * Sur Vercel, si Root Directory n’est pas `web`, `next build` tourne dans web/
- * et Vercel cherche `.next` à la racine du repo. On sort alors dans `../.next`.
- * Si Root Directory = web, cwd n’est plus le dossier `web` (c’est /vercel/path0) :
- * on garde `.next` ici.
- */
 const nextConfig: NextConfig = {
-  distDir:
-    process.env.VERCEL && path.basename(cwd) === "web" ? "../.next" : ".next",
   /** Évite que le bundler traite mal Prisma sur Vercel (client + moteur query). */
   serverExternalPackages: ["@prisma/client", "prisma"],
   experimental: {
