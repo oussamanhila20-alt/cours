@@ -1,8 +1,11 @@
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/auth.config";
 import { routing } from "@/i18n/routing";
 import createMiddleware from "next-intl/middleware";
 import type { NextAuthRequest } from "next-auth";
 import { NextResponse } from "next/server";
+
+const { auth } = NextAuth(authConfig);
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -31,8 +34,8 @@ const protectedPrefixes = [
 ];
 
 /**
- * Utiliser `auth()` (session Auth.js) au lieu de `getToken()` :
- * `role` et les claims customs sont alignés avec `auth()` / SiteHeader — évite « connecté » dans le header mais pas sur /eleve.
+ * Auth Edge-safe (`auth.config`) : ne pas importer `@/auth` ici
+ * (Prisma/bcrypt ferait dépasser la limite 1 Mo du middleware Vercel).
  */
 export default auth(async function middleware(request: NextAuthRequest) {
   const pathname = request.nextUrl.pathname;
