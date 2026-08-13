@@ -6,7 +6,7 @@ const nav = [
   { href: "/professeur/emploi-du-temps", label: "Emploi du temps" },
   { href: "/professeur/cours", label: "Mes cours" },
   { href: "/professeur/exercices", label: "Exercices / QCM" },
-  { href: "/professeur/cours-en-ligne", label: "Sessions live" },
+  { href: "/professeur/cours-en-ligne", label: "Cours en ligne" },
   { href: "/professeur/corrections", label: "Corrections" },
   { href: "/professeur/eleves", label: "Élèves & performances" },
 ];

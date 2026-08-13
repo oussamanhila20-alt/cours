@@ -5,13 +5,8 @@ export async function SiteFooter() {
   const t = await getTranslations("SiteFooter");
 
   const links = [
-    { href: "/inscription", label: t("correctionAi") },
-    { href: "/cours-en-ligne", label: t("teacherLive") },
-    { href: "/cours", label: t("quizFree") },
-    { href: "/tarifs", label: t("pricing") },
-    { href: "/blog", label: t("blog") },
-    { href: "/cours-gratuits-langues", label: t("languages") },
-    { href: "/connexion", label: t("contact") },
+    { href: "/connexion", label: t("login") },
+    { href: "/inscription", label: t("signup") },
   ] as const;
 
   return (
@@ -20,20 +15,14 @@ export async function SiteFooter() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
           <div className="max-w-sm">
             <p className="text-sm font-semibold leading-relaxed text-navy">
-              CorrecteurPlus
+              {t("brand")}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-navy/75">
               {t("tagline")}
             </p>
-            <Link
-              href="/inscription"
-              className="btn-primary mt-4 inline-flex w-full justify-center sm:mt-5 sm:w-auto"
-            >
-              {t("ctaFree")}
-            </Link>
           </div>
           <nav
-            className="grid grid-cols-1 gap-x-4 gap-y-1 text-sm sm:grid-cols-2 md:grid-cols-3 sm:gap-x-8 sm:gap-y-3"
+            className="grid grid-cols-1 gap-x-4 gap-y-1 text-sm sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3"
             aria-label={t("navLabel")}
           >
             {links.map((l) => (
@@ -47,13 +36,8 @@ export async function SiteFooter() {
             ))}
           </nav>
         </div>
-        <div className="flex flex-col gap-3 border-t border-navy/10 pt-5 text-xs text-navy/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-t border-navy/10 pt-5 text-xs text-navy/55">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/connexion" className="transition hover:text-electric">
-              {t("contact")}
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

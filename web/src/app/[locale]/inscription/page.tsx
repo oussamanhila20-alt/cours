@@ -1,12 +1,9 @@
 import { Link } from "@/i18n/navigation";
-import { getPaymentProvider } from "@/lib/payment-provider";
 import { InscriptionForm } from "./inscription-form";
 import { PublicPageShell } from "@/components/public-page-shell";
 import { Suspense } from "react";
 
 export default function InscriptionPage() {
-  const paymentProvider = getPaymentProvider();
-
   return (
     <PublicPageShell>
       <Suspense
@@ -16,7 +13,7 @@ export default function InscriptionPage() {
           </div>
         }
       >
-        <InscriptionForm paymentProvider={paymentProvider} />
+        <InscriptionForm />
       </Suspense>
       <p className="mt-6 text-center text-sm">
         <Link

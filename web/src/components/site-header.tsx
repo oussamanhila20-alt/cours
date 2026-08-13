@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { auth } from "@/auth";
 import { Link } from "@/i18n/navigation";
 import { SiteHeaderNav } from "@/components/site-header-nav";
@@ -15,14 +14,9 @@ export async function SiteHeader() {
           href="/"
           className="header-brand-link group flex min-w-0 shrink-0 items-center"
         >
-          <Image
-            src="/brand/correcteurplus-logo.png"
-            alt={t("brandTitle")}
-            width={240}
-            height={72}
-            priority
-            className="header-brand-logo h-9 w-auto object-contain object-left sm:h-10"
-          />
+          <span className="font-display text-base font-bold tracking-tight text-navy sm:text-lg">
+            {t("brandTitle")}
+          </span>
         </Link>
         <SiteHeaderNav
           user={

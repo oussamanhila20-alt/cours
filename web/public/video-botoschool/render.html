@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr" data-bsv-export-ready="true">
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+  <title>BotoSchool — Pub 30s</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1080px; height: 1920px; overflow: hidden; background: #061b4e; }
+    #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+
+    .frame-wrap {
+      position: absolute; inset: -4%;
+      transform-origin: center center;
+      will-change: transform, opacity;
+    }
+    .frame {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center top;
+      transform-origin: center center;
+    }
+    .frame.next { opacity: 0; }
+
+    .vignette {
+      position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background: radial-gradient(ellipse at 50% 55%, transparent 35%, rgba(6,27,78,.45) 100%);
+    }
+    .book-glow {
+      position: absolute; bottom: 0; left: 50%; width: 95%; height: 32%;
+      transform: translateX(-50%); z-index: 3; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,.6) 0%, rgba(21,216,255,.35) 40%, transparent 72%);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.04); }
+    }
+
+    .particle { position: absolute; border-radius: 50%; pointer-events: none; z-index: 4; }
+    .highlight, .card-glow {
+      position: absolute; border-radius: 14px; pointer-events: none; z-index: 5;
+    }
+    .highlight {
+      border: 2px solid rgba(21,216,255,.75);
+      box-shadow: 0 0 28px rgba(10,108,255,.55), inset 0 0 12px rgba(21,216,255,.2);
+    }
+    .card-glow {
+      border: 1px solid rgba(212,175,55,.65);
+      box-shadow: 0 0 32px rgba(212,175,55,.6);
+    }
+    .scan {
+      position: absolute; left: 0; width: 100%; height: 4px; z-index: 6;
+      background: linear-gradient(90deg, transparent, rgba(21,216,255,.95), rgba(212,175,55,.85), transparent);
+      box-shadow: 0 0 32px rgba(21,216,255,.9);
+      pointer-events: none;
+    }
+    .subtitle-wrap {
+      position: absolute; bottom: 5%; left: 4%; right: 4%; z-index: 20;
+      display: flex; justify-content: center;
+    }
+    .subtitle {
+      max-width: 960px; padding: 18px 28px; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(6,27,78,.88), rgba(10,40,90,.82));
+      border: 1px solid rgba(21,216,255,.45);
+      box-shadow: 0 8px 40px rgba(0,0,0,.35), 0 0 24px rgba(10,108,255,.25);
+      color: #f8fbff; font: 700 36px/1.32 "Segoe UI", system-ui, sans-serif;
+      text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+    .logo-badge {
+      position: absolute; top: 3.5%; left: 50%; transform: translateX(-50%);
+      z-index: 15; padding: 10px 22px; border-radius: 999px;
+      background: rgba(6,27,78,.55); border: 1px solid rgba(212,175,55,.5);
+      color: #fff; font: 700 28px/1 "Segoe UI", sans-serif;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 20px rgba(212,175,55,.35);
+    }
+
+    /* Transitions */
+    .fx { position: absolute; inset: 0; pointer-events: none; z-index: 30; opacity: 0; }
+    .fx-flash { background: linear-gradient(135deg, rgba(10,108,255,.75), rgba(212,175,55,.55)); }
+    .fx-swipe { background: linear-gradient(180deg, transparent 0%, rgba(21,216,255,.85) 45%, rgba(212,175,55,.5) 55%, transparent 100%); }
+    .fx-zoom { background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.9) 0%, rgba(10,108,255,.4) 40%, transparent 70%); }
+    .fx-wipe { background: linear-gradient(90deg, rgba(10,108,255,.9) 0%, rgba(21,216,255,.7) 50%, transparent 100%); transform: translateX(-100%); }
+
+    .gps-line {
+      position: absolute; height: 4px; border-radius: 4px; z-index: 5;
+      background: linear-gradient(90deg, #0a6cff, #15d8ff, #d4af37);
+      box-shadow: 0 0 16px rgba(21,216,255,.8);
+      transform-origin: left center;
+    }
+    .gps-pin {
+      position: absolute; width: 24px; height: 24px; border-radius: 50%; z-index: 6;
+      background: radial-gradient(circle, #15d8ff 30%, #0a6cff 70%);
+      box-shadow: 0 0 20px rgba(21,216,255,.9);
+    }
+    .cta-pulse {
+      position: absolute; border-radius: 12px; z-index: 5;
+      border: 2px solid rgba(10,108,255,.8);
+      box-shadow: 0 0 40px rgba(10,108,255,.65);
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="frameCur" class="frame-wrap"><div class="frame" id="imgCur"></div></div>
+    <div id="frameNext" class="frame-wrap" style="opacity:0"><div class="frame" id="imgNext"></div></div>
+    <div class="vignette"></div>
+    <div class="book-glow"></div>
+    <div id="particles"></div>
+    <div id="overlays"></div>
+    <div id="scan" class="scan" style="display:none"></div>
+    <div class="logo-badge">BoTo School</div>
+    <div class="subtitle-wrap"><div id="subtitle" class="subtitle"></div></div>
+    <div id="fxFlash" class="fx fx-flash"></div>
+    <div id="fxSwipe" class="fx fx-swipe"></div>
+    <div id="fxZoom" class="fx fx-zoom"></div>
+    <div id="fxWipe" class="fx fx-wipe"></div>
+  </div>
+  <script>
+    const SCENES = [
+      {
+        start: 0, end: 6,
+        frame: "/video-botoschool/frames/01-portail-intelligent.png",
+        sub: "Le portail intelligent pour les écoles privées.",
+        zoom: [1, 1.1], pan: [0, -12],
+        transition: "flash",
+        cards: [[4,38,18,10,0.3],[3,48,18,10,0.6],[79,38,18,10,0.9],[80,48,18,10,1.2]],
+      },
+      {
+        start: 6, end: 12,
+        frame: "/video-botoschool/frames/02-tableau-de-bord-ia.png",
+        sub: "La direction voit plus clair, plus vite.",
+        zoom: [1.02, 1.12], pan: [0, -8],
+        transition: "swipe", scan: true,
+        highlights: [[28,34,14,8,0.4],[43,34,14,8,1.0],[58,43,14,8,1.8],[28,43,14,8,2.6]],
+        cards: [[2,36,16,9,0.5],[82,36,16,9,1.1],[2,56,16,9,1.7],[82,56,16,9,2.3]],
+      },
+      {
+        start: 12, end: 18,
+        frame: "/video-botoschool/frames/03-communication-parents.png",
+        sub: "Une communication claire renforce la confiance.",
+        zoom: [1, 1.08], pan: [0, -6],
+        transition: "zoom",
+        highlights: [[36,30,28,42,0.2]],
+        cards: [[6,34,16,8,0.4],[5,44,16,8,0.8],[78,34,16,8,1.2],[79,54,16,8,1.6]],
+      },
+      {
+        start: 18, end: 24,
+        frame: "/video-botoschool/frames/04-transport-live.png",
+        sub: "Plus de visibilité. Plus de confiance.",
+        zoom: [1, 1.09], pan: [-8, 0],
+        transition: "wipe", gps: true,
+        cards: [[4,38,16,8,0.5],[80,38,16,8,1.0],[3,58,16,8,1.5],[79,58,16,8,2.0]],
+      },
+      {
+        start: 24, end: 30,
+        frame: "/video-botoschool/frames/05-demo-botoschool.png",
+        sub: "Demandez votre démo sur botoschool.ma",
+        zoom: [1.03, 1.14], pan: [0, -10],
+        transition: "flash", cta: true,
+        cards: [[3,36,16,9,0.4],[81,36,16,9,0.9],[2,56,16,9,1.4],[80,56,16,9,1.9]],
+        highlights: [[58,34,24,28,0.3],[18,78,64,6,1.0]],
+      },
+    ];
+    const DURATION = 30;
+    let prevIdx = -1;
+    let transitionUntil = 0;
+
+    const imgCur = document.getElementById("imgCur");
+    const imgNext = document.getElementById("imgNext");
+    const frameCur = document.getElementById("frameCur");
+    const frameNext = document.getElementById("frameNext");
+    const subEl = document.getElementById("subtitle");
+    const overlaysEl = document.getElementById("overlays");
+    const scanEl = document.getElementById("scan");
+    const fxFlash = document.getElementById("fxFlash");
+    const fxSwipe = document.getElementById("fxSwipe");
+    const fxZoom = document.getElementById("fxZoom");
+    const fxWipe = document.getElementById("fxWipe");
+    const particlesEl = document.getElementById("particles");
+
+    const particles = [];
+    for (let i = 0; i < 55; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      const gold = Math.random() > 0.45;
+      const size = 2 + Math.random() * 5;
+      particles.push({
+        el: p,
+        x: Math.random() * 100,
+        y: 45 + Math.random() * 50,
+        sp: 0.15 + Math.random() * 0.35,
+        ph: Math.random() * Math.PI * 2,
+        gold,
+        size,
+      });
+      p.style.cssText = `width:${size}px;height:${size}px;background:radial-gradient(circle, ${gold ? "#d4af37" : "#15d8ff"} 0%, transparent 70%)`;
+      particlesEl.appendChild(p);
+    }
+
+    function sceneAt(t) {
+      return SCENES.find(s => t >= s.start && t < s.end) || SCENES[SCENES.length - 1];
+    }
+    function lerp(a, b, p) { return a + (b - a) * Math.max(0, Math.min(1, p)); }
+    function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
+
+    function triggerTransition(type, t) {
+      transitionUntil = t + 0.65;
+      [fxFlash, fxSwipe, fxZoom, fxWipe].forEach(el => { el.style.opacity = "0"; el.style.transform = ""; });
+      if (type === "flash") {
+        fxFlash.style.opacity = "0.9";
+        fxFlash.style.transition = "opacity 0.55s ease-out";
+        setTimeout(() => { fxFlash.style.opacity = "0"; }, 80);
+      } else if (type === "swipe") {
+        fxSwipe.style.opacity = "1";
+        fxSwipe.style.transform = "translateY(-100%)";
+        fxSwipe.style.transition = "none";
+        requestAnimationFrame(() => {
+          fxSwipe.style.transition = "transform 0.65s cubic-bezier(.4,0,.2,1), opacity 0.65s";
+          fxSwipe.style.transform = "translateY(100%)";
+          fxSwipe.style.opacity = "0";
+        });
+      } else if (type === "zoom") {
+        fxZoom.style.opacity = "1";
+        fxZoom.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
+        fxZoom.style.transform = "scale(1.2)";
+        setTimeout(() => { fxZoom.style.opacity = "0"; fxZoom.style.transform = "scale(1.5)"; }, 60);
+      } else if (type === "wipe") {
+        fxWipe.style.opacity = "1";
+        fxWipe.style.transform = "translateX(-100%)";
+        fxWipe.style.transition = "none";
+        requestAnimationFrame(() => {
+          fxWipe.style.transition = "transform 0.7s cubic-bezier(.4,0,.2,1), opacity 0.7s";
+          fxWipe.style.transform = "translateX(100%)";
+          fxWipe.style.opacity = "0";
+        });
+      }
+    }
+
+    function render(t) {
+      const time = Math.max(0, Math.min(DURATION, t));
+      const sc = sceneAt(time);
+      const idx = SCENES.indexOf(sc);
+      const local = (time - sc.start) / (sc.end - sc.start);
+      const ep = easeOutCubic(Math.min(1, local * 1.15));
+
+      if (idx !== prevIdx) {
+        if (prevIdx >= 0 && sc.transition) triggerTransition(sc.transition, time);
+        imgCur.style.backgroundImage = `url(${sc.frame})`;
+        prevIdx = idx;
+      }
+
+      const zoom = lerp(sc.zoom[0], sc.zoom[1], ep);
+      const panY = lerp(sc.pan[1], 0, Math.min(1, local * 2.5));
+      const panX = lerp(sc.pan[0], 0, Math.min(1, local * 2.5));
+      const enter = Math.min(1, local * 4);
+      frameCur.style.opacity = String(enter);
+      frameCur.style.transform = `scale(${zoom}) translate(${panX}px, ${panY}px)`;
+
+      subEl.textContent = sc.sub;
+      subEl.style.opacity = String(Math.min(1, Math.max(0, (local - 0.08) * 3)));
+
+      scanEl.style.display = sc.scan ? "block" : "none";
+      if (sc.scan) scanEl.style.top = `${26 + ep * 38}%`;
+
+      particles.forEach((p, i) => {
+        const bob = Math.sin(time * p.sp + p.ph) * 8;
+        const drift = Math.sin(time * 0.3 + i) * 3;
+        p.el.style.left = `${p.x + drift}%`;
+        p.el.style.top = `${p.y + bob * 0.08}%`;
+        p.el.style.opacity = String(0.25 + Math.sin(time * 2 + p.ph) * 0.2 + 0.25);
+      });
+
+      overlaysEl.innerHTML = "";
+      const elapsed = time - sc.start;
+
+      (sc.cards || []).forEach(([l, tp, w, h, d]) => {
+        const el = document.createElement("div");
+        el.className = "card-glow";
+        const op = elapsed > d ? Math.min(0.95, (elapsed - d) / 0.45) : 0;
+        el.style.cssText = `top:${tp}%;left:${l}%;width:${w}%;height:${h}%;opacity:${op}`;
+        overlaysEl.appendChild(el);
+      });
+
+      (sc.highlights || []).forEach(([l, tp, w, h, d]) => {
+        const el = document.createElement("div");
+        el.className = "highlight";
+        const pulse = 0.5 + Math.sin(time * 4) * 0.15;
+        const op = elapsed > d ? Math.min(0.55, (elapsed - d) / 0.5) * pulse : 0;
+        el.style.cssText = `top:${tp}%;left:${l}%;width:${w}%;height:${h}%;opacity:${op}`;
+        overlaysEl.appendChild(el);
+      });
+
+      if (sc.gps) {
+        const line = document.createElement("div");
+        line.className = "gps-line";
+        const prog = Math.min(1, elapsed / 4);
+        line.style.cssText = `top:54%;left:18%;width:${prog * 64}%;opacity:${0.6 + prog * 0.4}`;
+        overlaysEl.appendChild(line);
+        const pin = document.createElement("div");
+        pin.className = "gps-pin";
+        pin.style.cssText = `top:52%;left:${18 + prog * 58}%;opacity:${prog}`;
+        overlaysEl.appendChild(pin);
+      }
+
+      if (sc.cta) {
+        const cta = document.createElement("div");
+        cta.className = "cta-pulse";
+        const pulse = 0.7 + Math.sin(time * 5) * 0.3;
+        cta.style.cssText = `top:78%;left:18%;width:64%;height:6%;opacity:${pulse * Math.min(1, elapsed)}`;
+        overlaysEl.appendChild(cta);
+      }
+
+      if (time > DURATION - 1) {
+        frameCur.style.opacity = String(Math.max(0, DURATION - time));
+        subEl.style.opacity = String(Math.max(0, DURATION - time));
+      }
+    }
+
+    window.__bsvSeek = (t) => render(t);
+    window.__bsvReady = true;
+    render(0);
+  </script>
+</body>
+</html>

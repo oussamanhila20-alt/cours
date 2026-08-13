@@ -1,16 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { CATALOG_SEED_QCMS } from "./seed-catalog-quizzes";
-import { STEM_CATALOG_SEED_QCMS } from "./seed-catalog-stem";
-import { FILL_CATALOG_SEED_QCMS } from "./seed-catalog-fill";
-import { PDFMATH_CATALOG_SEED_QCMS } from "./seed-catalog-pdfmath";
-import { MAXIMATH_X10_QCMS } from "./seed-catalog-maximath-x10";
-import { X10_FILL_LANGUES_QCMS } from "./seed-catalog-x10-fill-langues";
-import { X10_FILL_STEM_QCMS } from "./seed-catalog-x10-fill-stem";
-import {
-  capCatalogQcmsAtPerMatiere,
-  countByMatiere,
-} from "./seed-catalog-cap";
 
 const prisma = new PrismaClient();
 
@@ -107,7 +96,7 @@ async function main() {
 
   await prisma.exercise.upsert({
     where: { id: "seed-ex-1" },
-    update: { published: false },
+    update: { published: true },
     create: {
       id: "seed-ex-1",
       title: "QCM — calcul mental",
@@ -143,57 +132,6 @@ async function main() {
       published: true,
       authorId: prof.id,
     },
-  });
-
-  const allCatalogQcms = capCatalogQcmsAtPerMatiere([
-    ...CATALOG_SEED_QCMS,
-    ...STEM_CATALOG_SEED_QCMS,
-    ...FILL_CATALOG_SEED_QCMS,
-    ...PDFMATH_CATALOG_SEED_QCMS,
-    ...MAXIMATH_X10_QCMS,
-    ...X10_FILL_LANGUES_QCMS,
-    ...X10_FILL_STEM_QCMS,
-  ]);
-
-  const catalogIds = allCatalogQcms.map((q) => q.id);
-
-  for (const qcm of allCatalogQcms) {
-    const contentJson = JSON.stringify({ questions: qcm.questions });
-    await prisma.exercise.upsert({
-      where: { id: qcm.id },
-      update: {
-        title: qcm.title,
-        matiere: qcm.matiere,
-        niveau: qcm.niveau,
-        chapitre: qcm.chapitre,
-        type: "QCM",
-        contentJson,
-        published: true,
-      },
-      create: {
-        id: qcm.id,
-        title: qcm.title,
-        matiere: qcm.matiere,
-        niveau: qcm.niveau,
-        chapitre: qcm.chapitre,
-        type: "QCM",
-        contentJson,
-        published: true,
-        authorId: prof.id,
-      },
-    });
-  }
-
-  await prisma.exercise.updateMany({
-    where: {
-      type: "QCM",
-      id: { notIn: catalogIds },
-      OR: [
-        { id: { startsWith: "seed-qcm-" } },
-        { id: { startsWith: "seed-fill-" } },
-      ],
-    },
-    data: { published: false },
   });
 
   await prisma.professeurAffectation.deleteMany({});
@@ -239,8 +177,6 @@ async function main() {
     prof: prof.email,
     eleve: eleve.email,
     course: course.title,
-    catalogQcms: allCatalogQcms.length,
-    perMatiere: countByMatiere(allCatalogQcms),
   });
 }
 

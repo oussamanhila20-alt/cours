@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Correction d'exercices en ligne au Maroc | IA & Professeurs - CorrecteurPlus",
-    "description": "CorrecteurPlus aide les élèves à corriger leurs exercices en ligne avec l'IA et des professeurs. Quiz gratuits, corrections détaillées, préparation Bac et programme marocain."
+    "title": "Cours de soutien — gestion des cours",
+    "description": "Plateforme de gestion des cours de soutien : administrateur, professeur et élève."
   },
   "HomePage": {
     "badge": "Correction d'exercices — IA et professeurs",
@@ -97,9 +97,12 @@
     "planFamilyF2": "500 corrections IA + 35 crédits professeur partagés",
     "planFamilyF3": "Tableau de bord parent",
     "planCta": "Choisir ce pack",
+    "simpleBadge": "Plateforme locale",
+    "simpleTitle": "Gestion des cours de soutien",
+    "simpleIntro": "Trois espaces uniquement : administrateur, professeur et élève. Cours, exercices, emploi du temps et suivi — sans IA.",
     "spacesEyebrow": "Espaces plateforme",
-    "spacesSectionTitle": "Plateforme de correction d'exercices CorrecteurPlus",
-    "spacesSectionSubtitle": "Élèves, professeurs et administration : corrections, quiz et suivi dans un espace sécurisé.",
+    "spacesSectionTitle": "Les trois comptes",
+    "spacesSectionSubtitle": "Administrateur, professeur et élève : gestion des cours de soutien dans un espace sécurisé.",
     "finalCtaTitle": "Commence à corriger tes exercices dès aujourd'hui",
     "finalCtaSubtitle": "Inscription gratuite — 3 corrections IA offertes, quiz illimités, puis pack au choix.",
     "finalCtaButton": "Tester gratuitement",
@@ -148,7 +151,7 @@
     }
   },
   "SiteHeader": {
-    "brandTitle": "CorrecteurPlus",
+    "brandTitle": "Cours de soutien",
     "quizFree": "Quiz gratuits",
     "correctionAi": "Correction IA",
     "correctionTeacher": "Correction professeur",
@@ -164,12 +167,15 @@
     "login": "Connexion",
     "signup": "Inscription",
     "tryFree": "Essayer gratuitement",
-    "brandSubtitle": "Correction d'exercices avec l'IA",
+    "brandSubtitle": "Gestion des cours de soutien",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu"
   },
   "SiteFooter": {
-    "tagline": "Corrige tes exercices avec l'IA, puis demande l'aide d'un professeur si besoin.",
+    "brand": "Cours de soutien",
+    "tagline": "Plateforme de gestion des cours de soutien : admin, professeur et élève.",
+    "login": "Connexion",
+    "signup": "Inscription",
     "correctionAi": "Correction IA",
     "teacherLive": "Professeur live",
     "quizFree": "Quiz gratuits",
@@ -177,9 +183,9 @@
     "blog": "Blog",
     "languages": "Langues",
     "contact": "Contact",
-    "ctaFree": "Essayer 3 corrections gratuites",
+    "ctaFree": "Inscription",
     "navLabel": "Liens du site",
-    "copyright": "© {year} CorrecteurPlus. Tous droits réservés.",
+    "copyright": "© {year} Cours de soutien. Tous droits réservés.",
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité"
   },
@@ -244,8 +250,8 @@
     "ctaSignup": "Tester gratuitement"
   },
   "InscriptionPage": {
-    "title": "Commence à corriger tes exercices dès aujourd'hui",
-    "subtitle": "Inscris-toi gratuitement, profite de 3 corrections IA offertes, puis choisis le pack adapté à ton niveau.",
+    "title": "Créer un compte",
+    "subtitle": "Inscription élève ou professeur. L’administrateur crée les autres comptes depuis son espace.",
     "trust1": "3 corrections IA offertes",
     "trust2": "Quiz gratuits illimités",
     "trust3": "Paiement sécurisé par carte bancaire",
@@ -263,10 +269,10 @@
     "roleStudent": "Élève",
     "roleParent": "Parent",
     "roleTeacher": "Professeur",
-    "submitFree": "Créer mon compte et corriger",
+    "submitFree": "Créer mon compte",
     "successTitle": "Compte créé !",
-    "successRedirect": "Connecte-toi pour lancer ta première correction gratuite.",
-    "goLogin": "Commencer ma correction",
+    "successRedirect": "Connectez-vous pour accéder à votre espace.",
+    "goLogin": "Se connecter",
     "freePlanNote": "Pack Découverte : inscription gratuite, 3 corrections IA offertes — sans carte bancaire.",
     "continuePayment": "Continuer vers le paiement",
     "createFree": "Créer mon compte gratuit"

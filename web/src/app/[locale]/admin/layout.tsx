@@ -10,7 +10,7 @@ const nav = [
   { href: "/admin/emploi-du-temps", label: "Emploi du temps" },
   { href: "/admin/affectations", label: "Affectations" },
   { href: "/admin/cours", label: "Cours" },
-  { href: "/admin/cours-en-ligne", label: "Sessions live" },
+  { href: "/admin/cours-en-ligne", label: "Cours en ligne" },
   { href: "/admin/exercices", label: "Exercices" },
   { href: "/admin/statistiques", label: "Statistiques" },
 ];

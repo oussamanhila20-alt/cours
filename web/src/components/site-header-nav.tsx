@@ -24,6 +24,12 @@ function navLinkClass(activeMobile?: boolean, mobile?: boolean) {
   return `${base} px-3 py-2 text-sm`;
 }
 
+function spaceHref(role: string) {
+  if (role === "ELEVE") return "/eleve";
+  if (role === "PROFESSEUR") return "/professeur";
+  return "/admin";
+}
+
 export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
   const t = useTranslations("SiteHeader");
   const pathname = usePathname();
@@ -59,23 +65,6 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
     };
   }, [mobileOpen]);
 
-  const navItems = (
-    <>
-      <Link href="/inscription" className={navLinkClass()}>
-        {t("correctionAi")}
-      </Link>
-      <Link href="/cours-en-ligne" className={navLinkClass()}>
-        {t("teacherLive")}
-      </Link>
-      <Link href="/cours" className={navLinkClass()}>
-        {t("quizFree")}
-      </Link>
-      <Link href="/tarifs" className={navLinkClass()}>
-        {t("pricing")}
-      </Link>
-    </>
-  );
-
   return (
     <>
       <div className="relative z-[1] flex flex-1 items-center justify-end gap-1.5 sm:gap-2">
@@ -85,19 +74,9 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
           className="hidden flex-wrap items-center gap-1 lg:flex lg:gap-2"
           aria-label="Principal"
         >
-          {navItems}
           {user ? (
             <>
-              <Link
-                href={
-                  user.role === "ELEVE"
-                    ? "/eleve"
-                    : user.role === "PROFESSEUR"
-                      ? "/professeur"
-                      : "/admin"
-                }
-                className={navLinkClass()}
-              >
+              <Link href={spaceHref(user.role)} className={navLinkClass()}>
                 {t("mySpace")}
               </Link>
               <span className="hidden max-w-[140px] truncate text-sm text-muted-text lg:inline">
@@ -118,7 +97,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
                 {t("login")}
               </Link>
               <Link href="/inscription" className="btn-primary !py-2 !text-sm">
-                {t("tryFree")}
+                {t("signup")}
               </Link>
             </>
           )}
@@ -163,44 +142,10 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
                   className="flex flex-1 flex-col gap-1.5 overflow-x-hidden overflow-y-auto overscroll-contain px-3 py-4 pb-safe"
                   aria-label="Principal mobile"
                 >
-                  <Link
-                    href="/inscription"
-                    className={navLinkClass(true, true)}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {t("correctionAi")}
-                  </Link>
-                  <Link
-                    href="/cours-en-ligne"
-                    className={navLinkClass(true, true)}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {t("teacherLive")}
-                  </Link>
-                  <Link
-                    href="/cours"
-                    className={navLinkClass(true, true)}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {t("quizFree")}
-                  </Link>
-                  <Link
-                    href="/tarifs"
-                    className={navLinkClass(true, true)}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {t("pricing")}
-                  </Link>
                   {user ? (
                     <>
                       <Link
-                        href={
-                          user.role === "ELEVE"
-                            ? "/eleve"
-                            : user.role === "PROFESSEUR"
-                              ? "/professeur"
-                              : "/admin"
-                        }
+                        href={spaceHref(user.role)}
                         className={navLinkClass(true, true)}
                         onClick={() => setMobileOpen(false)}
                       >
@@ -221,26 +166,24 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
                       </form>
                     </>
                   ) : (
-                    <Link
-                      href="/connexion"
-                      className={navLinkClass(true, true)}
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {t("login")}
-                    </Link>
+                    <>
+                      <Link
+                        href="/connexion"
+                        className={navLinkClass(true, true)}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {t("login")}
+                      </Link>
+                      <Link
+                        href="/inscription"
+                        className={navLinkClass(true, true)}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {t("signup")}
+                      </Link>
+                    </>
                   )}
                 </nav>
-                {!user ? (
-                  <div className="shrink-0 border-t border-white/60 bg-white/75 px-3 py-4 pb-safe backdrop-blur-md">
-                    <Link
-                      href="/inscription"
-                      className="btn-primary flex w-full justify-center !py-3.5 !text-base"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {t("tryFree")}
-                    </Link>
-                  </div>
-                ) : null}
               </div>
             </div>,
             document.body,

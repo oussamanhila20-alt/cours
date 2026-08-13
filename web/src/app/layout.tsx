@@ -10,13 +10,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Correction d'exercices en ligne au Maroc | IA & Professeurs - CorrecteurPlus",
+  title: "Cours de soutien — gestion des cours",
   description:
-    "CorrecteurPlus aide les élèves à corriger leurs exercices en ligne avec l'IA et des professeurs. Quiz gratuits, corrections détaillées, préparation Bac et programme marocain.",
-  icons: {
-    icon: [{ url: "/brand/correcteurplus-logo.png", type: "image/png" }],
-    apple: "/brand/correcteurplus-logo.png",
-  },
+    "Plateforme de gestion des cours de soutien : espaces administrateur, professeur et élève.",
 };
 
 function localeFromPathname(pathname: string): "fr" | "ar" {
