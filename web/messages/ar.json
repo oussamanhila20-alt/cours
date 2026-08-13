@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "دروس الدعم — إدارة الدروس",
+    "title": "Centre Beta — إدارة الدروس",
     "description": "منصة إدارة دروس الدعم: مدير، أستاذ وتلميذ."
   },
   "HomePage": {
@@ -55,7 +55,7 @@
     "planFamilyF3": "لوحة تحكم موحدة للأبوان",
     "planCta": "التسجيل",
     "simpleBadge": "منصة محلية",
-    "simpleTitle": "إدارة دروس الدعم",
+    "simpleTitle": "Centre Beta",
     "simpleIntro": "ثلاث مساحات فقط: المدير، الأستاذ والتلميذ. دروس، تمارين، جدول ومتابعة — بدون ذكاء اصطناعي.",
     "spacesEyebrow": "مساحات المنصة",
     "spacesSectionTitle": "الحسابات الثلاثة",
@@ -108,7 +108,7 @@
     }
   },
   "SiteHeader": {
-    "brandTitle": "دروس الدعم",
+    "brandTitle": "Centre Beta",
     "quizFree": "اختبارات مجانية",
     "correctionAi": "تصحيح بالذكاء الاصطناعي",
     "correctionTeacher": "تصحيح من الأستاذ",
@@ -124,12 +124,12 @@
     "signup": "إنشاء حساب",
     "teacherLive": "أستاذ مباشر",
     "tryFree": "التسجيل",
-    "brandSubtitle": "إدارة دروس الدعم",
+    "brandSubtitle": "Centre Beta",
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة"
   },
   "SiteFooter": {
-    "brand": "دروس الدعم",
+    "brand": "Centre Beta",
     "tagline": "منصة إدارة دروس الدعم: مدير، أستاذ وتلميذ.",
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب",
@@ -142,7 +142,7 @@
     "contact": "اتصال",
     "ctaFree": "إنشاء حساب",
     "navLabel": "روابط الموقع",
-    "copyright": "© {year} دروس الدعم. جميع الحقوق محفوظة.",
+    "copyright": "© {year} Centre Beta. جميع الحقوق محفوظة.",
     "legal": "إشعارات قانونية",
     "privacy": "سياسة الخصوصية"
   },

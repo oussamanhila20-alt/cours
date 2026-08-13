@@ -126,7 +126,7 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
   const gridTemplate = `3.25rem repeat(${n}, minmax(6.5rem, 1fr))`;
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-950/20">
+    <div className="max-w-full overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-950/20">
       <div
         className="grid w-full min-w-[720px]"
         style={{

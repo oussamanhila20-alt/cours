@@ -29,10 +29,10 @@ export function PwaRegister() {
   if (hidden || !deferred) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-[80] w-[min(92vw,28rem)] -translate-x-1/2 rounded-2xl border border-white/20 bg-navy p-4 text-white shadow-xl">
+    <div className="fixed inset-x-3 bottom-3 z-[80] rounded-2xl border border-white/20 bg-navy p-4 text-white shadow-xl sm:inset-x-auto sm:left-1/2 sm:w-[min(92vw,28rem)] sm:-translate-x-1/2">
       <p className="text-sm font-semibold">Installer l’application</p>
       <p className="mt-1 text-xs text-white/75">
-        Ajoutez Cours de soutien à l’écran d’accueil pour l’ouvrir comme une
+        Ajoutez Centre Beta à l’écran d’accueil pour l’ouvrir comme une
         app.
       </p>
       <div className="mt-3 flex gap-2">

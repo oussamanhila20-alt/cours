@@ -3,10 +3,10 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Cours de soutien",
-    short_name: "Cours",
+    name: "Centre Beta",
+    short_name: "Beta",
     description:
-      "Plateforme de cours de soutien : espaces administrateur, professeur et élève.",
+      "Plateforme Centre Beta : espaces administrateur, professeur et élève.",
     start_url: "/fr?source=pwa",
     scope: "/",
     display: "standalone",

@@ -60,7 +60,9 @@
 html {
   scroll-behavior: smooth;
   color-scheme: light;
-  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -68,8 +70,43 @@ body {
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
   font-feature-settings: "rlig" 1, "calt" 1;
-  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+select,
+textarea,
+button {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea,
+  label {
+    min-width: 0 !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.25;
+  }
 }
 
 [dir="rtl"] body {
@@ -201,13 +238,18 @@ body {
   }
 
   .data-table-wrap {
-    @apply overflow-x-auto rounded-2xl border border-navy/10 bg-white shadow-sm;
+    @apply max-w-full overflow-x-auto rounded-2xl border border-navy/10 bg-white shadow-sm;
     -webkit-overflow-scrolling: touch;
   }
 
   .data-table {
     @apply w-full text-left text-sm;
-    min-width: 36rem;
+  }
+
+  @media (min-width: 768px) {
+    .data-table {
+      min-width: 36rem;
+    }
   }
 
   .data-table thead {
@@ -215,7 +257,7 @@ body {
   }
 
   .data-table th {
-    @apply whitespace-nowrap px-3 py-3;
+    @apply px-3 py-3;
   }
 
   .data-table td {
@@ -226,14 +268,41 @@ body {
     @apply border-t border-zinc-100;
   }
 
-  @media (max-width: 639px) {
-    .data-table {
-      min-width: 28rem;
-      font-size: 0.8125rem;
+  @media (max-width: 767px) {
+    .data-table-wrap {
+      overflow: visible;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
     }
+
+    .data-table,
+    .data-table thead,
+    .data-table tbody,
     .data-table th,
+    .data-table td,
+    .data-table tr {
+      display: block;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .data-table thead {
+      display: none;
+    }
+
+    .data-table tbody tr {
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: #fff;
+      padding: 0.85rem 1rem;
+    }
+
     .data-table td {
-      padding: 0.65rem 0.7rem;
+      padding: 0.35rem 0;
+      border: 0;
     }
   }
 

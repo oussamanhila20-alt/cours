@@ -67,7 +67,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
 
   return (
     <>
-      <div className="relative z-[1] flex flex-1 items-center justify-end gap-1.5 sm:gap-2">
+      <div className="relative z-[1] flex shrink-0 items-center justify-end gap-1.5 sm:gap-2">
         <LanguageSwitcher variant="icon" />
 
         <nav

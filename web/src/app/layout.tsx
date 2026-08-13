@@ -12,14 +12,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Cours de soutien — gestion des cours",
+  title: "Centre Beta — gestion des cours",
   description:
     "Plateforme de gestion des cours de soutien : espaces administrateur, professeur et élève.",
-  applicationName: "Cours de soutien",
+  applicationName: "Centre Beta",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Cours de soutien",
+    title: "Centre Beta",
   },
   formatDetection: {
     telephone: false,
@@ -41,8 +41,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} dir={dir} className="h-full antialiased" suppressHydrationWarning>
-      <body className="site-bg flex min-h-full flex-col font-sans text-foreground antialiased">
+    <html lang={locale} dir={dir} className="h-full max-w-full overflow-x-hidden antialiased" suppressHydrationWarning>
+      <body className="site-bg flex min-h-full w-full min-w-0 max-w-full flex-col overflow-x-hidden font-sans text-foreground antialiased">
         {children}
         <PwaRegister />
       </body>

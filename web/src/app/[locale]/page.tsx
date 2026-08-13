@@ -58,7 +58,7 @@ export default async function Home({ params }: PageProps) {
               <p className="mt-2 text-sm leading-relaxed text-muted-text">
                 {t(`spaces.${space.key}.desc`)}
               </p>
-              <p className="mt-4 rounded-lg bg-navy/5 px-3 py-2 font-mono text-xs text-navy">
+              <p className="mt-4 break-all rounded-lg bg-navy/5 px-3 py-2 font-mono text-xs text-navy">
                 {space.email}
                 <br />
                 {space.password}

@@ -65,7 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <DocumentLang />
       <Providers>
         <div
-          className={`${spaceGrotesk.variable} ${plusJakarta.variable} ${geistMono.variable} ${notoArabic.variable} font-sans`}
+          className={`${spaceGrotesk.variable} ${plusJakarta.variable} ${geistMono.variable} ${notoArabic.variable} w-full min-w-0 max-w-full overflow-x-hidden font-sans`}
         >
           {children}
         </div>

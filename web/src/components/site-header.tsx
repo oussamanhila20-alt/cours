@@ -12,9 +12,9 @@ export async function SiteHeader() {
       <div className="relative mx-auto flex h-[var(--header-h)] max-w-6xl items-center justify-between gap-3 px-3 sm:px-6">
         <Link
           href="/"
-          className="header-brand-link group flex min-w-0 shrink-0 items-center"
+          className="header-brand-link group flex min-w-0 flex-1 items-center overflow-hidden"
         >
-          <span className="font-display text-base font-bold tracking-tight text-navy sm:text-lg">
+          <span className="font-display block truncate text-base font-bold tracking-tight text-navy sm:text-lg">
             {t("brandTitle")}
           </span>
         </Link>

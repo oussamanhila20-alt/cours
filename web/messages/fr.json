@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Cours de soutien — gestion des cours",
+    "title": "Centre Beta — gestion des cours",
     "description": "Plateforme de gestion des cours de soutien : administrateur, professeur et élève."
   },
   "HomePage": {
@@ -98,7 +98,7 @@
     "planFamilyF3": "Tableau de bord parent",
     "planCta": "Choisir ce pack",
     "simpleBadge": "Plateforme locale",
-    "simpleTitle": "Gestion des cours de soutien",
+    "simpleTitle": "Centre Beta",
     "simpleIntro": "Trois espaces uniquement : administrateur, professeur et élève. Cours, exercices, emploi du temps et suivi — sans IA.",
     "spacesEyebrow": "Espaces plateforme",
     "spacesSectionTitle": "Les trois comptes",
@@ -151,7 +151,7 @@
     }
   },
   "SiteHeader": {
-    "brandTitle": "Cours de soutien",
+    "brandTitle": "Centre Beta",
     "quizFree": "Quiz gratuits",
     "correctionAi": "Correction IA",
     "correctionTeacher": "Correction professeur",
@@ -167,12 +167,12 @@
     "login": "Connexion",
     "signup": "Inscription",
     "tryFree": "Essayer gratuitement",
-    "brandSubtitle": "Gestion des cours de soutien",
+    "brandSubtitle": "Centre Beta",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu"
   },
   "SiteFooter": {
-    "brand": "Cours de soutien",
+    "brand": "Centre Beta",
     "tagline": "Plateforme de gestion des cours de soutien : admin, professeur et élève.",
     "login": "Connexion",
     "signup": "Inscription",
@@ -185,7 +185,7 @@
     "contact": "Contact",
     "ctaFree": "Inscription",
     "navLabel": "Liens du site",
-    "copyright": "© {year} Cours de soutien. Tous droits réservés.",
+    "copyright": "© {year} Centre Beta. Tous droits réservés.",
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité"
   },

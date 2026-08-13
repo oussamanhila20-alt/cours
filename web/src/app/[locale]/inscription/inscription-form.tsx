@@ -26,7 +26,7 @@ export function InscriptionForm() {
 
     return (
       <div className="mx-auto w-full max-w-md px-4 py-16 text-center">
-        <div className="card-elevated p-10 shadow-xl shadow-slate-900/5 dark:shadow-black/40">
+        <div className="card-elevated p-4 shadow-xl shadow-slate-900/5 sm:p-10 dark:shadow-black/40">
           <p className="text-lg font-bold text-slate-900 dark:text-white">
             {t("successTitle")}
           </p>
@@ -43,7 +43,7 @@ export function InscriptionForm() {
 
   return (
     <div className="mx-auto w-full max-w-lg px-4 py-16 sm:py-20">
-      <div className="card-elevated p-8 shadow-xl shadow-electric/[0.06]">
+      <div className="card-elevated p-4 shadow-xl shadow-electric/[0.06] sm:p-8">
         <h1 className="font-display text-2xl font-bold tracking-tight text-navy">
           {t("title")}
         </h1>

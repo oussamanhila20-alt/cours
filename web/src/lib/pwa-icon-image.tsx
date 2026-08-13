@@ -36,7 +36,7 @@ export function createPwaIcon(size: number, maskable = false) {
             fontFamily: "sans-serif",
           }}
         >
-          CS
+          CB
         </div>
       </div>
     ),

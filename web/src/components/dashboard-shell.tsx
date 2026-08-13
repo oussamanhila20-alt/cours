@@ -66,9 +66,9 @@ export function DashboardShell({
   }, [open]);
 
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="flex min-h-full w-full min-w-0 max-w-full flex-col overflow-x-hidden">
       <div className="sticky top-0 z-30 border-b border-navy/10 bg-white/95 px-3 py-2.5 backdrop-blur-md md:px-4">
-        <div className="mx-auto flex max-w-6xl items-center gap-2">
+        <div className="mx-auto flex w-full min-w-0 max-w-6xl items-center gap-2">
           <button
             type="button"
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-navy/10 bg-white text-navy shadow-sm md:hidden"
@@ -88,19 +88,19 @@ export function DashboardShell({
           </button>
           <Link
             href="/"
-            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-navy"
+            className="inline-flex min-h-11 min-w-0 items-center text-sm font-semibold text-navy"
           >
             Accueil
           </Link>
           <span
-            className={`ms-auto inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ring-1 ${badgeClass[accent]}`}
+            className={`ms-auto inline-flex max-w-[45%] shrink-0 truncate items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ring-1 sm:max-w-none sm:px-3 sm:text-[11px] ${badgeClass[accent]}`}
           >
             {spaceLabel}
           </span>
         </div>
       </div>
 
-      <div className="relative mx-auto flex w-full max-w-6xl flex-1">
+      <div className="relative mx-auto flex w-full min-w-0 max-w-6xl flex-1 overflow-x-hidden">
         {open ? (
           <button
             type="button"
@@ -111,10 +111,8 @@ export function DashboardShell({
         ) : null}
 
         <aside
-          className={`fixed inset-y-0 start-0 z-50 flex w-[min(18.5rem,86vw)] flex-col border-e border-navy/10 bg-white shadow-2xl transition-transform duration-200 md:static md:z-0 md:w-64 md:translate-x-0 md:shadow-none md:rtl:translate-x-0 ${asideAccent[accent]} ${
-            open
-              ? "translate-x-0"
-              : "-translate-x-full rtl:translate-x-full md:translate-x-0 md:rtl:translate-x-0"
+          className={`fixed inset-y-0 start-0 z-50 w-[min(18.5rem,86vw)] flex-col border-e border-navy/10 bg-white shadow-2xl md:static md:z-0 md:flex md:w-64 md:shadow-none ${asideAccent[accent]} ${
+            open ? "flex" : "hidden md:flex"
           }`}
         >
           <div className="flex items-center justify-between border-b border-navy/10 px-4 py-3 md:hidden">
@@ -138,20 +136,20 @@ export function DashboardShell({
           </div>
         </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col bg-[var(--background)]">
+        <div className="flex min-w-0 max-w-full flex-1 flex-col overflow-x-hidden bg-[var(--background)]">
           <header
             className={`relative overflow-hidden border-b border-navy/10 bg-gradient-to-br px-4 py-5 md:px-6 md:py-7 ${headerAccent[accent]}`}
           >
-            <h1 className="text-xl font-extrabold tracking-tight text-navy md:text-[1.65rem]">
+            <h1 className="text-xl font-extrabold tracking-tight break-words text-navy md:text-[1.65rem]">
               {title}
             </h1>
             {subtitle ? (
-              <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-slate-600">
+              <p className="mt-1.5 max-w-2xl text-sm leading-relaxed break-words text-slate-600">
                 {subtitle}
               </p>
             ) : null}
           </header>
-          <main className="flex-1 px-4 py-5 md:px-8 md:py-8">{children}</main>
+          <main className="min-w-0 flex-1 overflow-x-hidden px-3 py-4 sm:px-4 sm:py-5 md:px-8 md:py-8">{children}</main>
         </div>
       </div>
     </div>
