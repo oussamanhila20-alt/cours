@@ -131,6 +131,10 @@ model Payment {
   student       User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
   amount        Float
   paidAt        DateTime @default(now())
+  /// Mois couvert par cette mensualité (1 = janvier … 12 = décembre)
+  periodMonth   Int
+  /// Année scolaire / civile de la mensualité (ex. 2026)
+  periodYear    Int
   label         String
   method        String   @default("ESPECES")
   receiptNumber Int      @unique
@@ -138,6 +142,7 @@ model Payment {
   createdAt     DateTime @default(now())
 
   @@index([studentId])
+  @@index([periodYear, periodMonth])
 }
 
 /// Inscription élève en attente de paiement Stripe (données supprimées après consommation)

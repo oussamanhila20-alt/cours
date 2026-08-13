@@ -10,6 +10,7 @@ const nav = [
   { href: "/eleve/cours-en-ligne", label: "Cours en ligne" },
   { href: "/eleve/notes", label: "Mes notes" },
   { href: "/eleve/emploi-du-temps", label: "Emploi du temps" },
+  { href: "/eleve/paiements", label: "Mes paiements" },
   { href: "/eleve/progression", label: "Progression" },
 ];
 

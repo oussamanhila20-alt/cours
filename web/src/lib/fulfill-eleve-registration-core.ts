@@ -56,12 +56,15 @@ export async function fulfillEleveRegistrationCore(
         select: { receiptNumber: true },
       });
       const receiptNumber = (last?.receiptNumber ?? 0) + 1;
+      const now = new Date();
 
       await tx.payment.create({
         data: {
           studentId: user.id,
           amount: amountMajor,
-          paidAt: new Date(),
+          paidAt: now,
+          periodMonth: now.getMonth() + 1,
+          periodYear: now.getFullYear(),
           label: paymentLabel,
           method: paymentMethod,
           note: paymentNote,
