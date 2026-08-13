@@ -35,8 +35,8 @@ export default async function AdminUtilisateursPage() {
 
       <section>
         <h3 className="text-lg font-semibold text-navy dark:text-gold">Comptes</h3>
-        <div className="mt-3 overflow-x-auto rounded-xl border border-navy/10 dark:border-slate-700">
-          <table className="w-full min-w-[960px] text-left text-sm">
+        <div className="mt-3 data-table-wrap">
+          <table className="data-table">
             <thead>
               <tr className="border-b border-navy/10 bg-navy/[0.04] dark:border-slate-700 dark:bg-slate-800/50">
                 <th className="py-2.5 pr-3 pl-3">Nom</th>

@@ -1,5 +1,4 @@
 import { DashboardShell } from "@/components/dashboard-shell";
-import { DashboardTopBar } from "@/components/dashboard-top-bar";
 
 const nav = [
   { href: "/professeur", label: "Tableau de bord" },
@@ -17,18 +16,14 @@ export default function ProfesseurLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-full flex-col">
-      <DashboardTopBar label="Professeur" accent="indigo" />
-      <div className="mx-auto flex w-full max-w-6xl flex-1">
-        <DashboardShell
-          title="Espace professeur"
-          subtitle="Publier des cours, créer des exercices et suivre la progression des élèves."
-          nav={nav}
-          accent="indigo"
-        >
-          {children}
-        </DashboardShell>
-      </div>
-    </div>
+    <DashboardShell
+      spaceLabel="Professeur"
+      title="Espace professeur"
+      subtitle="Publier des cours, créer des exercices et suivre la progression des élèves."
+      nav={nav}
+      accent="indigo"
+    >
+      {children}
+    </DashboardShell>
   );
 }

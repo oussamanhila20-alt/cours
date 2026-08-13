@@ -26,10 +26,10 @@ export default async function AdminAbsencesPage() {
 
       <section className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
         <h3 className="text-lg font-semibold">Nouvelle absence</h3>
-        <form action={createAbsenceAction} className="mt-3 flex flex-wrap items-end gap-3">
+        <form action={createAbsenceAction} className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="flex flex-col gap-1 text-xs">
             Élève
-            <select name="studentId" required className="min-w-[220px] rounded border border-zinc-300 px-2 py-1 dark:border-zinc-700">
+            <select name="studentId" required className="min-h-11 w-full rounded-xl border border-zinc-300 px-3 py-2.5 dark:border-zinc-700">
               <option value="">—</option>
               {eleves.map((e) => (
                 <option key={e.id} value={e.id}>{e.name}{e.groupe ? ` (${e.groupe})` : ""}</option>
@@ -38,7 +38,7 @@ export default async function AdminAbsencesPage() {
           </label>
           <label className="flex flex-col gap-1 text-xs">
             Date
-            <input name="date" type="date" required className="rounded border border-zinc-300 px-2 py-1 dark:border-zinc-700" />
+            <input name="date" type="date" required className="min-h-11 w-full rounded-xl border border-zinc-300 px-3 py-2.5 dark:border-zinc-700" />
           </label>
           <label className="flex items-center gap-2 text-xs pb-1">
             <input type="checkbox" name="justified" value="true" />
@@ -46,16 +46,16 @@ export default async function AdminAbsencesPage() {
           </label>
           <label className="flex flex-col gap-1 text-xs">
             Motif
-            <input name="note" placeholder="Optionnel" className="min-w-[220px] rounded border border-zinc-300 px-2 py-1 dark:border-zinc-700" />
+            <input name="note" placeholder="Optionnel" className="min-h-11 w-full rounded-xl border border-zinc-300 px-3 py-2.5 dark:border-zinc-700" />
           </label>
-          <button type="submit" className="rounded-full bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy/90">Ajouter</button>
+          <button type="submit" className="min-h-12 rounded-full bg-navy px-4 text-sm font-semibold text-white hover:bg-navy/90 sm:col-span-2">Ajouter</button>
         </form>
       </section>
 
       <section>
         <h3 className="text-lg font-semibold">Historique des absences</h3>
-        <div className="mt-3 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-          <table className="w-full min-w-[760px] text-left text-sm">
+        <div className="mt-3 data-table-wrap">
+          <table className="data-table">
             <thead className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50">
               <tr>
                 <th className="p-3">Date</th>

@@ -200,6 +200,43 @@ body {
     @apply min-h-[42px] w-full rounded-2xl border border-border-soft bg-white/80 px-3.5 py-2 text-sm text-navy shadow-sm backdrop-blur-sm transition-[border-color,box-shadow] focus:border-electric/50 focus:outline-none focus:ring-2 focus:ring-cyan-ai/25;
   }
 
+  .data-table-wrap {
+    @apply overflow-x-auto rounded-2xl border border-navy/10 bg-white shadow-sm;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    @apply w-full text-left text-sm;
+    min-width: 36rem;
+  }
+
+  .data-table thead {
+    @apply bg-navy/[0.04] text-[11px] font-bold uppercase tracking-wide text-navy/70;
+  }
+
+  .data-table th {
+    @apply whitespace-nowrap px-3 py-3;
+  }
+
+  .data-table td {
+    @apply px-3 py-3 align-middle;
+  }
+
+  .data-table tbody tr {
+    @apply border-t border-zinc-100;
+  }
+
+  @media (max-width: 639px) {
+    .data-table {
+      min-width: 28rem;
+      font-size: 0.8125rem;
+    }
+    .data-table th,
+    .data-table td {
+      padding: 0.65rem 0.7rem;
+    }
+  }
+
   .header-glass {
     @apply sticky top-0 z-50 border-b border-border-soft/80 bg-white/80 shadow-sm shadow-electric/[0.06] backdrop-blur-xl;
     padding-top: env(safe-area-inset-top, 0px);

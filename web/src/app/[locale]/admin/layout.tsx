@@ -1,5 +1,4 @@
 import { DashboardShell } from "@/components/dashboard-shell";
-import { DashboardTopBar } from "@/components/dashboard-top-bar";
 
 const nav = [
   { href: "/admin", label: "Tableau de bord" },
@@ -21,18 +20,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-full flex-col">
-      <DashboardTopBar label="Administration" accent="amber" />
-      <div className="mx-auto flex w-full max-w-6xl flex-1">
-        <DashboardShell
-          title="Administration"
-          subtitle="Pilotage des comptes, des contenus et des indicateurs globaux."
-          nav={nav}
-          accent="amber"
-        >
-          {children}
-        </DashboardShell>
-      </div>
-    </div>
+    <DashboardShell
+      spaceLabel="Administration"
+      title="Administration"
+      subtitle="Pilotage des comptes, des contenus et des indicateurs globaux."
+      nav={nav}
+      accent="amber"
+    >
+      {children}
+    </DashboardShell>
   );
 }

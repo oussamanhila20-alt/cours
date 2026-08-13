@@ -332,8 +332,8 @@ export default async function AdminGroupesPage({ searchParams }: PageProps) {
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
           Pour modifier rapidement le groupe d’un élève sans passer par la fiche ci-dessus.
         </p>
-        <div className="mt-3 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-          <table className="w-full min-w-[800px] text-left text-sm">
+        <div className="mt-3 data-table-wrap">
+          <table className="data-table">
             <thead className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50">
               <tr>
                 <th className="p-3">Élève</th>

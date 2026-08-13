@@ -55,8 +55,8 @@ export default async function ProfesseurElevesPage() {
           Aucune activité enregistrée.
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
+        <div className="data-table-wrap">
+          <table className="data-table">
             <thead>
               <tr className="border-b border-zinc-200 dark:border-zinc-800">
                 <th className="py-2 pr-4">Élève</th>
