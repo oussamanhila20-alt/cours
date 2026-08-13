@@ -18,7 +18,7 @@ export function DashboardTopBar({
   accent: Accent;
 }) {
   return (
-    <div className="sticky top-0 z-20 border-b border-navy/10 bg-gradient-to-r from-white/95 via-white/90 to-brandblue/[0.04] px-4 py-3 backdrop-blur-md dark:border-slate-800/90 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-brandblue/[0.06]">
+    <div className="sticky top-0 z-20 border-b border-navy/10 bg-gradient-to-r from-white/95 via-white/90 to-brandblue/[0.04] px-3 py-2.5 backdrop-blur-md dark:border-slate-800/90 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-brandblue/[0.06] md:px-4 md:py-3">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <Link
           href="/"

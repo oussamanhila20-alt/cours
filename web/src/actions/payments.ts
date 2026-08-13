@@ -9,7 +9,7 @@ import { mensualiteLabel } from "@/lib/payment-period";
 const createSchema = z.object({
   studentId: z.string().cuid(),
   amount: z.coerce.number().positive(),
-  paidAt: z.string().min(8),
+  paidAt: z.string().optional(),
   periodMonth: z.coerce.number().int().min(1).max(12),
   periodYear: z.coerce.number().int().min(2020).max(2100),
   label: z.string().optional(),
@@ -24,7 +24,7 @@ export async function createPaymentAction(formData: FormData) {
   const parsed = createSchema.safeParse({
     studentId: formData.get("studentId"),
     amount: formData.get("amount"),
-    paidAt: formData.get("paidAt"),
+    paidAt: (formData.get("paidAt") as string) || undefined,
     periodMonth: formData.get("periodMonth"),
     periodYear: formData.get("periodYear"),
     label: formData.get("label") || undefined,
@@ -38,7 +38,9 @@ export async function createPaymentAction(formData: FormData) {
   });
   if (!student || student.role !== "ELEVE") return;
 
-  const paidAt = new Date(parsed.data.paidAt);
+  const paidAt = parsed.data.paidAt
+    ? new Date(parsed.data.paidAt)
+    : new Date();
   if (Number.isNaN(paidAt.getTime())) return;
 
   const label =
