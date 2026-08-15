@@ -51,7 +51,7 @@ export default async function AdminEmploiDuTempsPage() {
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-sm text-navy/70">
         <Link href="/admin" className="text-navy hover:underline dark:text-gold">
           ← Tableau de bord
         </Link>
@@ -65,7 +65,7 @@ export default async function AdminEmploiDuTempsPage() {
       </p>
 
       {groupsForPrint.length > 0 ? (
-        <section className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+        <section className="rounded-xl border border-gold/30 bg-white p-4">
           <h3 className="text-base font-semibold">Impression des agendas par groupe</h3>
           <div className="mt-3 flex flex-wrap gap-2">
             {groupsForPrint.map((g) => (
@@ -85,7 +85,7 @@ export default async function AdminEmploiDuTempsPage() {
 
       <form
         action={createScheduleEntryAction}
-        className="flex flex-wrap items-end gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
+        className="flex flex-wrap items-end gap-3 rounded-xl border border-gold/30 bg-white p-4"
       >
         <label className="flex flex-col gap-1 text-xs">
           Titre
@@ -216,7 +216,7 @@ export default async function AdminEmploiDuTempsPage() {
       </form>
 
       {schedule.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 px-4 py-8 text-center text-sm text-zinc-500 dark:border-zinc-700">
+        <p className="rounded-xl border border-dashed border-gold/40 bg-white px-4 py-8 text-center text-sm text-navy/70">
           Aucun créneau enregistré.
         </p>
       ) : (

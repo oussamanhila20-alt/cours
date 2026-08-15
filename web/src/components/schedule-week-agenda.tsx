@@ -99,34 +99,34 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
 
   const blockClass =
     variant === "brand"
-      ? "rounded-md border border-navy/15 bg-gradient-to-br from-white to-navy/[0.04] px-2 py-1.5 text-left shadow-sm dark:border-slate-600 dark:from-slate-800/90 dark:to-slate-900/80"
-      : "rounded-md border border-zinc-200 bg-white px-2 py-1.5 text-left shadow-sm dark:border-zinc-700 dark:bg-zinc-900/80";
+      ? "rounded-md border border-gold/40 bg-gradient-to-br from-white to-gold/[0.08] px-2 py-1.5 text-left shadow-sm"
+      : "rounded-md border border-gold/35 bg-white px-2 py-1.5 text-left shadow-sm";
 
   const titleClass =
     variant === "brand"
-      ? "line-clamp-2 text-sm font-semibold leading-snug text-navy dark:text-gold"
-      : "line-clamp-2 text-sm font-semibold leading-snug text-zinc-900 dark:text-zinc-100";
+      ? "line-clamp-2 text-sm font-semibold leading-snug text-navy"
+      : "line-clamp-2 text-sm font-semibold leading-snug text-navy";
 
   const metaClass =
     variant === "brand"
-      ? "line-clamp-3 mt-1 text-[11px] leading-snug text-slate-600 dark:text-slate-400"
-      : "line-clamp-3 mt-1 text-[11px] leading-snug text-zinc-600 dark:text-zinc-400";
+      ? "line-clamp-3 mt-1 text-[11px] leading-snug text-slate-600"
+      : "line-clamp-3 mt-1 text-[11px] leading-snug text-zinc-600";
 
   const timeClass =
     variant === "brand"
-      ? "text-[10px] font-medium tabular-nums text-brandblue dark:text-brandblue/90"
-      : "text-[10px] font-medium tabular-nums text-zinc-500 dark:text-zinc-400";
+      ? "text-[10px] font-medium tabular-nums text-mauve"
+      : "text-[10px] font-medium tabular-nums text-mauve";
 
   const minBlock = renderBlockFooter ? MIN_BLOCK_WITH_FOOTER_PX : MIN_BLOCK_PX;
 
   const headerRowClass =
-    "flex h-10 shrink-0 items-center justify-center border-b border-zinc-200 bg-zinc-100/90 text-xs font-semibold text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100";
+    "flex h-10 shrink-0 items-center justify-center border-b border-gold/30 bg-gold/10 text-xs font-semibold text-navy";
 
   const n = columns.length;
   const gridTemplate = `3.25rem repeat(${n}, minmax(6.5rem, 1fr))`;
 
   return (
-    <div className="max-w-full overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-950/20">
+    <div className="max-w-full overflow-x-auto rounded-xl border border-gold/35 bg-white">
       <div
         className="grid w-full min-w-[720px]"
         style={{
@@ -135,13 +135,13 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
         }}
       >
         {/* Coin + en-têtes jours */}
-        <div className={`${headerRowClass} border-r border-zinc-200 dark:border-zinc-700`} aria-hidden />
+        <div className={`${headerRowClass} border-r border-gold/30`} aria-hidden />
         {columns.map((col) => {
           const label = dayLabelStyle === "short" ? col.labelShort : col.labelLong;
           return (
             <div
               key={`h-${col.weekday}`}
-              className={`${headerRowClass} border-l border-zinc-200 dark:border-zinc-700`}
+              className={`${headerRowClass} border-l border-gold/30`}
             >
               {label}
             </div>
@@ -149,13 +149,13 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
         })}
 
         {/* Colonne des heures */}
-        <div className="relative h-full min-h-0 border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/40">
+        <div className="relative h-full min-h-0 border-r border-gold/30 bg-[#fffdf8]">
           {hourTicks.map((tick) => {
             const top = ((tick - min) / totalMinutes) * columnHeight;
             return (
               <span
                 key={tick}
-                className="absolute right-1.5 -translate-y-1/2 text-[10px] tabular-nums text-zinc-500 dark:text-zinc-400"
+                className="absolute right-1.5 -translate-y-1/2 text-[10px] font-medium tabular-nums text-navy/70"
                 style={{ top }}
               >
                 {formatHourLabel(tick)}
@@ -170,14 +170,14 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
           return (
             <div
               key={col.weekday}
-              className="relative h-full min-h-0 border-l border-zinc-200 bg-white/60 dark:border-zinc-700 dark:bg-zinc-900/30"
+              className="relative h-full min-h-0 border-l border-gold/25 bg-white"
             >
               {hourTicks.map((tick) => {
                 const top = ((tick - min) / totalMinutes) * columnHeight;
                 return (
                   <div
                     key={tick}
-                    className="pointer-events-none absolute right-0 left-0 border-t border-zinc-200/90 dark:border-zinc-700/80"
+                    className="pointer-events-none absolute right-0 left-0 border-t border-gold/20"
                     style={{ top }}
                   />
                 );

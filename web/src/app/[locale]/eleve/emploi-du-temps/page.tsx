@@ -28,11 +28,11 @@ export default async function EleveEmploiDuTempsPage() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-sm text-navy/70">
         Séances correspondant à votre classe et à votre année scolaire (profil), ou créneaux ouverts à tous.
       </p>
       {entries.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500 dark:border-zinc-700">
+        <div className="rounded-xl border border-dashed border-gold/40 bg-white p-8 text-center text-sm text-navy/70">
           Emploi du temps non renseigné.
         </div>
       ) : (

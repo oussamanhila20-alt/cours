@@ -15,9 +15,9 @@ const asideAccent: Record<Accent, string> = {
 };
 
 const headerAccent: Record<Accent, string> = {
-  teal: "from-black via-[#0c0a0b] to-mauve/[0.12]",
-  indigo: "from-black via-[#0c0a0b] to-gold/[0.10]",
-  amber: "from-black via-[#0c0a0b] to-gold/[0.14]",
+  teal: "from-white via-white to-mauve/[0.10]",
+  indigo: "from-white via-white to-gold/[0.10]",
+  amber: "from-white via-white to-gold/[0.14]",
 };
 
 const badgeClass: Record<Accent, string> = {
@@ -67,11 +67,11 @@ export function DashboardShell({
 
   return (
     <div className="flex min-h-full w-full min-w-0 max-w-full flex-col overflow-x-hidden">
-      <div className="sticky top-0 z-30 border-b border-gold/20 bg-black/90 px-3 py-2.5 backdrop-blur-md md:px-4">
+      <div className="sticky top-0 z-30 border-b border-gold/25 bg-white/95 px-3 py-2.5 backdrop-blur-md md:px-4">
         <div className="mx-auto flex w-full min-w-0 max-w-6xl items-center gap-2">
           <button
             type="button"
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gold/30 bg-[#12100e] text-gold shadow-sm md:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gold/35 bg-white text-navy shadow-sm md:hidden"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             onClick={() => setOpen((v) => !v)}
@@ -88,7 +88,7 @@ export function DashboardShell({
           </button>
           <Link
             href="/"
-            className="inline-flex min-h-11 min-w-0 items-center text-sm font-semibold text-gold"
+            className="inline-flex min-h-11 min-w-0 items-center text-sm font-semibold text-navy"
           >
             Accueil
           </Link>
@@ -111,7 +111,7 @@ export function DashboardShell({
         ) : null}
 
         <aside
-          className={`fixed inset-y-0 start-0 z-50 w-[min(18.5rem,86vw)] flex-col border-e border-gold/20 bg-[#0c0a0b] shadow-2xl md:static md:z-0 md:flex md:w-64 md:shadow-none ${asideAccent[accent]} ${
+          className={`fixed inset-y-0 start-0 z-50 w-[min(18.5rem,86vw)] flex-col border-e border-gold/25 bg-white shadow-2xl md:static md:z-0 md:flex md:w-64 md:shadow-none ${asideAccent[accent]} ${
             open ? "flex" : "hidden md:flex"
           }`}
         >

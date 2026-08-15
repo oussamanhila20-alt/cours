@@ -8,7 +8,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#070707",
+  themeColor: "#d4af37",
 };
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} dir={dir} className="dark h-full max-w-full overflow-x-hidden antialiased" suppressHydrationWarning>
+    <html lang={locale} dir={dir} className="h-full max-w-full overflow-x-hidden antialiased" suppressHydrationWarning>
       <body className="site-bg flex min-h-full w-full min-w-0 max-w-full flex-col overflow-x-hidden font-sans text-foreground antialiased">
         {children}
         <PwaRegister />

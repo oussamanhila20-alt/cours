@@ -19,7 +19,7 @@ function navLinkClass(activeMobile?: boolean, mobile?: boolean) {
       ? "bg-electric/10 text-navy"
       : "text-navy/80 hover:bg-background-secondary hover:text-navy");
   if (mobile) {
-    return `${base} flex min-h-[48px] items-center rounded-2xl border border-gold/30 bg-black/40 px-4 py-3 text-base shadow-sm backdrop-blur-md`;
+    return `${base} flex min-h-[48px] items-center rounded-2xl border border-gold/30 bg-white px-4 py-3 text-base shadow-sm`;
   }
   return `${base} px-3 py-2 text-sm`;
 }
@@ -85,7 +85,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
               <form action={logoutAction} className="inline">
                 <button
                   type="submit"
-                  className="rounded-full border border-gold/35 bg-transparent px-3 py-2 text-sm font-medium text-gold transition hover:bg-mauve/10"
+                  className="rounded-full border border-gold/40 bg-white/10 px-3 py-2 text-sm font-medium text-gold transition hover:bg-white/15"
                 >
                   {t("logout")}
                 </button>
@@ -159,7 +159,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
                       <form action={logoutAction} className="pt-2">
                         <button
                           type="submit"
-                          className="flex min-h-[48px] w-full items-center rounded-2xl border border-gold/30 bg-black/40 px-4 py-3 text-left text-base font-medium text-gold transition hover:bg-mauve/10"
+                          className="flex min-h-[48px] w-full items-center rounded-2xl border border-gold/30 bg-white px-4 py-3 text-left text-base font-medium text-navy transition hover:bg-mauve/10"
                         >
                           {t("logout")}
                         </button>
