@@ -18,15 +18,15 @@ export function DashboardTopBar({
   accent: Accent;
 }) {
   return (
-    <div className="sticky top-0 z-20 border-b border-navy/10 bg-gradient-to-r from-white/95 via-white/90 to-brandblue/[0.04] px-3 py-2.5 backdrop-blur-md dark:border-slate-800/90 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-brandblue/[0.06] md:px-4 md:py-3">
+    <div className="sticky top-0 z-20 border-b border-gold/20 bg-gradient-to-r from-black/95 via-black/90 to-mauve/[0.08] px-3 py-2.5 backdrop-blur-md md:px-4 md:py-3">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <Link
           href="/"
-          className="group inline-flex items-center gap-2 text-sm font-semibold text-navy transition hover:text-brandblue dark:text-slate-300 dark:hover:text-gold"
+          className="group inline-flex items-center gap-2 text-sm font-semibold text-gold transition hover:text-mauve"
         >
           <span
             aria-hidden
-            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-navy/10 bg-white text-navy shadow-sm transition group-hover:border-brandblue/30 group-hover:bg-brandblue/10 dark:border-slate-600 dark:bg-slate-800 dark:text-brandblue dark:group-hover:bg-brandblue/15"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gold/30 bg-[#12100e] text-gold shadow-sm transition group-hover:border-mauve/40 group-hover:bg-mauve/10"
           >
             <svg
               className="h-4 w-4"

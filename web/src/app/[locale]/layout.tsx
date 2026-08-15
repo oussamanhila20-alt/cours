@@ -1,17 +1,17 @@
 import { DocumentLang } from "@/components/document-lang";
 import { routing } from "@/i18n/routing";
 import { Providers } from "@/app/providers";
-import { Geist_Mono, Noto_Sans_Arabic, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import { Geist_Mono, Noto_Sans_Arabic, Plus_Jakarta_Sans, Cinzel } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-const spaceGrotesk = Space_Grotesk({
+const cinzel = Cinzel({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-  fallback: ["system-ui", "sans-serif"],
+  fallback: ["Georgia", "serif"],
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -65,7 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <DocumentLang />
       <Providers>
         <div
-          className={`${spaceGrotesk.variable} ${plusJakarta.variable} ${geistMono.variable} ${notoArabic.variable} w-full min-w-0 max-w-full overflow-x-hidden font-sans`}
+          className={`${cinzel.variable} ${plusJakarta.variable} ${geistMono.variable} ${notoArabic.variable} w-full min-w-0 max-w-full overflow-x-hidden font-sans`}
         >
           {children}
         </div>

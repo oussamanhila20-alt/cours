@@ -76,7 +76,7 @@ export function LanguageSwitcher({
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-white/60 text-navy shadow-sm backdrop-blur-sm transition hover:bg-background-secondary aria-expanded:bg-background-secondary"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/35 bg-black/40 text-gold shadow-sm backdrop-blur-sm transition hover:bg-mauve/15 aria-expanded:bg-mauve/15"
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={t("chooseLanguage")}
@@ -85,7 +85,7 @@ export function LanguageSwitcher({
         </button>
         {open ? (
           <ul
-            className="absolute end-0 z-[70] mt-2 min-w-[11rem] overflow-hidden rounded-xl border border-border-soft bg-white py-1 text-sm shadow-xl shadow-electric/10 backdrop-blur-xl"
+            className="absolute end-0 z-[70] mt-2 min-w-[11rem] overflow-hidden rounded-xl border border-gold/30 bg-[#12100e] py-1 text-sm shadow-xl shadow-gold/10 backdrop-blur-xl"
             role="listbox"
             aria-label={t("chooseLanguage")}
           >

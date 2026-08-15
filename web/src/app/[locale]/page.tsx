@@ -1,4 +1,5 @@
 import { PublicPageShell } from "@/components/public-page-shell";
+import { BrandLogo } from "@/components/brand-logo";
 import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -18,17 +19,18 @@ export default async function Home({ params }: PageProps) {
   return (
     <PublicPageShell>
       <section className="site-card-bg relative overflow-hidden rounded-2xl border border-border-soft px-4 py-10 shadow-md backdrop-blur-md sm:rounded-[24px] sm:px-10 sm:py-16">
-        <div className="relative max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-wider text-electric">
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center text-center">
+          <BrandLogo size="lg" showName={false} />
+          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-mauve">
             {t("simpleBadge")}
           </p>
-          <h1 className="font-display mt-4 text-2xl font-extrabold leading-tight tracking-tight text-navy sm:text-4xl">
+          <h1 className="font-display mt-4 text-2xl font-extrabold leading-tight tracking-tight text-gold sm:text-4xl">
             {t("simpleTitle")}
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-muted-text sm:text-base">
             {t("simpleIntro")}
           </p>
-          <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
             <Link href="/connexion" className="btn-primary inline-flex w-full justify-center px-6 py-3.5 text-sm font-semibold sm:w-auto sm:px-8">
               {t("ctaLogin")}
             </Link>

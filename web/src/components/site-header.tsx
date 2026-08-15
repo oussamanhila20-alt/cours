@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { Link } from "@/i18n/navigation";
+import { BrandLogo } from "@/components/brand-logo";
 import { SiteHeaderNav } from "@/components/site-header-nav";
 import { getTranslations } from "next-intl/server";
 
@@ -13,10 +14,9 @@ export async function SiteHeader() {
         <Link
           href="/"
           className="header-brand-link group flex min-w-0 flex-1 items-center overflow-hidden"
+          aria-label={t("brandTitle")}
         >
-          <span className="font-display block truncate text-base font-bold tracking-tight text-navy sm:text-lg">
-            {t("brandTitle")}
-          </span>
+          <BrandLogo />
         </Link>
         <SiteHeaderNav
           user={

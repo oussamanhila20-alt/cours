@@ -19,7 +19,7 @@ function navLinkClass(activeMobile?: boolean, mobile?: boolean) {
       ? "bg-electric/10 text-navy"
       : "text-navy/80 hover:bg-background-secondary hover:text-navy");
   if (mobile) {
-    return `${base} flex min-h-[48px] items-center rounded-2xl border border-white/70 bg-white/80 px-4 py-3 text-base shadow-sm backdrop-blur-md`;
+    return `${base} flex min-h-[48px] items-center rounded-2xl border border-gold/30 bg-black/40 px-4 py-3 text-base shadow-sm backdrop-blur-md`;
   }
   return `${base} px-3 py-2 text-sm`;
 }
@@ -85,7 +85,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
               <form action={logoutAction} className="inline">
                 <button
                   type="submit"
-                  className="rounded-full border border-border-soft bg-white/50 px-3 py-2 text-sm font-medium text-navy transition hover:bg-background-secondary"
+                  className="rounded-full border border-gold/35 bg-transparent px-3 py-2 text-sm font-medium text-gold transition hover:bg-mauve/10"
                 >
                   {t("logout")}
                 </button>
@@ -105,7 +105,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
 
         <button
           type="button"
-          className="relative z-[1] inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-border-soft bg-white/80 p-2 text-navy shadow-sm transition hover:bg-background-secondary lg:hidden"
+          className="relative z-[1] inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-gold/35 bg-black/50 p-2 text-gold shadow-sm transition hover:bg-mauve/15 lg:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-site-nav"
           aria-label={mobileOpen ? t("closeMenu") : t("openMenu")}
@@ -159,7 +159,7 @@ export function SiteHeaderNav({ user }: { user: HeaderUser | null }) {
                       <form action={logoutAction} className="pt-2">
                         <button
                           type="submit"
-                          className="flex min-h-[48px] w-full items-center rounded-2xl border border-border-soft bg-white px-4 py-3 text-left text-base font-medium text-navy transition hover:bg-background-secondary"
+                          className="flex min-h-[48px] w-full items-center rounded-2xl border border-gold/30 bg-black/40 px-4 py-3 text-left text-base font-medium text-gold transition hover:bg-mauve/10"
                         >
                           {t("logout")}
                         </button>
