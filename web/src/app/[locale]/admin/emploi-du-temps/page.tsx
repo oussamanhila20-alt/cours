@@ -222,18 +222,7 @@ export default async function AdminEmploiDuTempsPage() {
       ) : (
         <ScheduleWeekAgenda
           entries={schedule}
-          getMeta={(e) =>
-            [
-              e.professeur?.name,
-              e.matiere,
-              e.niveau,
-              e.groupe ? `groupe ${e.groupe}` : null,
-              e.anneeScolaire,
-              e.room,
-            ]
-              .filter(Boolean)
-              .join(" · ") || null
-          }
+          getMeta={(e) => [e.niveau, e.anneeScolaire].filter(Boolean).join(" · ") || null}
           renderBlockFooter={(e) => <ScheduleRowDelete id={e.id} />}
         />
       )}

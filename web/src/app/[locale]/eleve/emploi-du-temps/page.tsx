@@ -36,19 +36,7 @@ export default async function EleveEmploiDuTempsPage() {
           Emploi du temps non renseigné.
         </div>
       ) : (
-        <ScheduleWeekAgenda
-          entries={entries}
-          getMeta={(e) =>
-            [
-              e.professeur?.name ? `Prof. ${e.professeur.name}` : null,
-              e.matiere,
-              e.niveau,
-              e.room,
-            ]
-              .filter(Boolean)
-              .join(" · ") || null
-          }
-        />
+        <ScheduleWeekAgenda entries={entries} />
       )}
     </div>
   );

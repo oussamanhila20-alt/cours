@@ -13,6 +13,7 @@ export default async function ProfesseurEmploiDuTempsPage() {
     prisma.scheduleEntry.findMany({
       where: { professeurId: userId },
       orderBy: [{ weekday: "asc" }, { startTime: "asc" }],
+      include: { professeur: { select: { name: true } } },
     }),
     prisma.professeurAffectation.findMany({
       where: { professeurId: userId },
@@ -85,11 +86,7 @@ export default async function ProfesseurEmploiDuTempsPage() {
           </div>
         ) : (
           <div className="mt-5">
-            <ScheduleWeekAgenda
-              variant="brand"
-              entries={entries}
-              getMeta={(e) => [e.matiere, e.niveau, e.groupe, e.room].filter(Boolean).join(" · ") || null}
-            />
+            <ScheduleWeekAgenda variant="brand" entries={entries} />
           </div>
         )}
       </section>

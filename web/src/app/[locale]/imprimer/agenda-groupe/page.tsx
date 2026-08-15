@@ -29,15 +29,7 @@ export default async function ImprimerAgendaGroupePage({ searchParams }: Props) 
           <p className="mt-6 text-sm text-zinc-500">Aucun créneau trouvé pour ce filtre.</p>
         ) : (
           <div className="mt-6 print:mt-4">
-            <ScheduleWeekAgenda
-              dayLabelStyle="long"
-              entries={entries}
-              getMeta={(e) =>
-                [e.matiere, e.professeur?.name ? `Prof. ${e.professeur.name}` : null, e.room]
-                  .filter(Boolean)
-                  .join(" · ") || null
-              }
-            />
+            <ScheduleWeekAgenda dayLabelStyle="long" entries={entries} />
           </div>
         )}
       </div>
