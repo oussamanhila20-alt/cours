@@ -5,9 +5,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 type PageProps = { params: Promise<{ locale: string }> };
 
 const spaces = [
-  { key: "admin" as const, email: "admin@demo.fr", password: "admin123" },
-  { key: "teacher" as const, email: "prof@demo.fr", password: "prof123" },
-  { key: "student" as const, email: "eleve@demo.fr", password: "eleve123" },
+  { key: "admin" as const },
+  { key: "teacher" as const },
+  { key: "student" as const },
 ];
 
 export default async function Home({ params }: PageProps) {
@@ -57,11 +57,6 @@ export default async function Home({ params }: PageProps) {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-text">
                 {t(`spaces.${space.key}.desc`)}
-              </p>
-              <p className="mt-4 break-all rounded-lg bg-navy/5 px-3 py-2 font-mono text-xs text-navy">
-                {space.email}
-                <br />
-                {space.password}
               </p>
             </article>
           ))}

@@ -1,7 +1,8 @@
 /**
- * Si la table User est vide (Neon après migrate), crée les comptes démo.
+ * Crée / met à jour les comptes Centre Beta (admin + professeurs).
  * Version .mjs pour Vercel — pas besoin de tsx pendant `npm run build`.
  */
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
@@ -12,67 +13,63 @@ function hash(password) {
 }
 
 async function main() {
-  const count = await prisma.user.count();
-  if (count > 0) {
-    console.log("[ensure-demo-users] Base déjà peuplée — aucun compte ajouté.");
-    return;
-  }
-
-  console.log("[ensure-demo-users] Aucun utilisateur — création des comptes démo…");
-
   await prisma.user.upsert({
-    where: { email: "admin@demo.fr" },
-    update: {},
-    create: {
-      email: "admin@demo.fr",
+    where: { email: "centrebeta@gmail.com" },
+    update: {
       name: "Administrateur",
-      passwordHash: hash("admin123"),
+      passwordHash: hash("beta2026"),
+      role: "ADMIN",
+    },
+    create: {
+      email: "centrebeta@gmail.com",
+      name: "Administrateur",
+      passwordHash: hash("beta2026"),
       role: "ADMIN",
     },
   });
 
   await prisma.user.upsert({
-    where: { email: "prof@demo.fr" },
-    update: {},
+    where: { email: "mohamed@gmail.com" },
+    update: {
+      name: "Mohamed",
+      passwordHash: hash("mohamed2026"),
+      role: "PROFESSEUR",
+    },
     create: {
-      email: "prof@demo.fr",
-      name: "Marie Dupont",
-      passwordHash: hash("prof123"),
+      email: "mohamed@gmail.com",
+      name: "Mohamed",
+      passwordHash: hash("mohamed2026"),
       role: "PROFESSEUR",
     },
   });
 
-  const demoSubjects = [
-    { name: "Mathématiques", priceDh: 50 },
-    { name: "Français", priceDh: 30 },
-  ];
-  const demoTotal = demoSubjects.reduce((s, l) => s + l.priceDh, 0);
-
   await prisma.user.upsert({
-    where: { email: "eleve@demo.fr" },
+    where: { email: "oussama@gmail.com" },
     update: {
-      groupe: "4ème A",
-      anneeScolaire: "2025-2026",
-      enrollmentLanguageCount: 2,
-      enrollmentSubjectsJson: JSON.stringify(demoSubjects),
-      enrollmentTotal: demoTotal,
-      enrolledAt: new Date("2025-09-01T12:00:00"),
+      name: "Oussama",
+      passwordHash: hash("oussama2026"),
+      role: "PROFESSEUR",
     },
     create: {
-      email: "eleve@demo.fr",
-      name: "Luc Martin",
-      passwordHash: hash("eleve123"),
-      role: "ELEVE",
-      groupe: "4ème A",
-      anneeScolaire: "2025-2026",
-      enrollmentLanguageCount: 2,
-      enrollmentSubjectsJson: JSON.stringify(demoSubjects),
-      enrollmentTotal: demoTotal,
-      enrolledAt: new Date("2025-09-01T12:00:00"),
+      email: "oussama@gmail.com",
+      name: "Oussama",
+      passwordHash: hash("oussama2026"),
+      role: "PROFESSEUR",
     },
   });
 
-  console.log("[ensure-demo-users] OK : admin@demo.fr, prof@demo.fr, eleve@demo.fr.");
+  for (const email of ["admin@demo.fr", "prof@demo.fr", "eleve@demo.fr"]) {
+    try {
+      const deleted = await prisma.user.deleteMany({ where: { email } });
+      if (deleted.count > 0) {
+        console.log(`[ensure-demo-users] Compte démo supprimé : ${email}`);
+      }
+    } catch (e) {
+      console.warn(`[ensure-demo-users] Impossible de supprimer ${email} (données liées).`);
+    }
+  }
+
+  console.log("[ensure-demo-users] OK : comptes Centre Beta à jour.");
 }
 
 main()

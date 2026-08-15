@@ -217,16 +217,6 @@ export function ConnexionForm() {
           Inscription
         </Link>
       </p>
-      <div className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-400">
-        <p className="text-center font-medium text-navy dark:text-slate-200">
-          Comptes de démonstration
-        </p>
-        <ul className="mt-3 space-y-1.5 font-mono text-xs">
-          <li>Admin — admin@demo.fr / admin123</li>
-          <li>Professeur — prof@demo.fr / prof123</li>
-          <li>Élève — eleve@demo.fr / eleve123</li>
-        </ul>
-      </div>
     </>
   );
 }

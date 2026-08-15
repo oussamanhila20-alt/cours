@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
@@ -26,56 +27,57 @@ const qcmDemo = {
 
 async function main() {
   const admin = await prisma.user.upsert({
-    where: { email: "admin@demo.fr" },
-    update: {},
+    where: { email: "centrebeta@gmail.com" },
+    update: {
+      name: "Administrateur Centre Beta",
+      passwordHash: hash("beta2026"),
+      role: "ADMIN",
+    },
     create: {
-      email: "admin@demo.fr",
-      name: "Administrateur",
-      passwordHash: hash("admin123"),
+      email: "centrebeta@gmail.com",
+      name: "Administrateur Centre Beta",
+      passwordHash: hash("beta2026"),
       role: "ADMIN",
     },
   });
 
   const prof = await prisma.user.upsert({
-    where: { email: "prof@demo.fr" },
-    update: {},
+    where: { email: "mohamed@gmail.com" },
+    update: {
+      name: "Mohamed",
+      passwordHash: hash("mohamed2026"),
+      role: "PROFESSEUR",
+    },
     create: {
-      email: "prof@demo.fr",
-      name: "Marie Dupont",
-      passwordHash: hash("prof123"),
+      email: "mohamed@gmail.com",
+      name: "Mohamed",
+      passwordHash: hash("mohamed2026"),
       role: "PROFESSEUR",
     },
   });
 
-  const demoSubjects = [
-    { name: "Mathématiques", priceDh: 50 },
-    { name: "Français", priceDh: 30 },
-  ];
-  const demoTotal = demoSubjects.reduce((s, l) => s + l.priceDh, 0);
-
-  const eleve = await prisma.user.upsert({
-    where: { email: "eleve@demo.fr" },
+  await prisma.user.upsert({
+    where: { email: "oussama@gmail.com" },
     update: {
-      groupe: "4ème A",
-      anneeScolaire: "2025-2026",
-      enrollmentLanguageCount: 2,
-      enrollmentSubjectsJson: JSON.stringify(demoSubjects),
-      enrollmentTotal: demoTotal,
-      enrolledAt: new Date("2025-09-01T12:00:00"),
+      name: "Oussama",
+      passwordHash: hash("oussama2026"),
+      role: "PROFESSEUR",
     },
     create: {
-      email: "eleve@demo.fr",
-      name: "Luc Martin",
-      passwordHash: hash("eleve123"),
-      role: "ELEVE",
-      groupe: "4ème A",
-      anneeScolaire: "2025-2026",
-      enrollmentLanguageCount: 2,
-      enrollmentSubjectsJson: JSON.stringify(demoSubjects),
-      enrollmentTotal: demoTotal,
-      enrolledAt: new Date("2025-09-01T12:00:00"),
+      email: "oussama@gmail.com",
+      name: "Oussama",
+      passwordHash: hash("oussama2026"),
+      role: "PROFESSEUR",
     },
   });
+
+  for (const email of ["admin@demo.fr", "prof@demo.fr", "eleve@demo.fr"]) {
+    try {
+      await prisma.user.deleteMany({ where: { email } });
+    } catch {
+      /* Données liées : le compte démo reste mais n’est plus affiché. */
+    }
+  }
 
   const course = await prisma.course.upsert({
     where: { id: "seed-course-1" },
@@ -175,7 +177,6 @@ async function main() {
   console.log("Seed OK:", {
     admin: admin.email,
     prof: prof.email,
-    eleve: eleve.email,
     course: course.title,
   });
 }
