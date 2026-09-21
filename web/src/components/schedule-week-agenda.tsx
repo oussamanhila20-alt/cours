@@ -11,9 +11,11 @@ const WEEKDAY_COLUMNS: { weekday: number; labelShort: string; labelLong: string 
   { weekday: 0, labelShort: "Dim", labelLong: "Dimanche" },
 ];
 
-const ROW_PX = 64;
-const DAY_START_H = 8;
-const DAY_END_H = 20;
+/** Hauteur d’une heure — plus grande pour lisibilité */
+const ROW_PX = 100;
+/** On ignore le matin (8h–14h) : grille à partir de 14h */
+const DAY_START_H = 14;
+const DAY_END_H = 21;
 
 type SubjectTone = {
   bg: string;
@@ -115,6 +117,14 @@ type Props<T extends ScheduleAgendaEntryBase> = {
   compact?: boolean;
 };
 
+type LaidOut<T> = {
+  entry: T;
+  startMin: number;
+  endMin: number;
+  col: number;
+  colCount: number;
+};
+
 function formatTime(t: string) {
   return t.slice(0, 5);
 }
@@ -137,16 +147,72 @@ function subjectTone(name: string): SubjectTone {
 }
 
 function hourRange(entries: ScheduleAgendaEntryBase[]): { startH: number; endH: number } {
-  if (entries.length === 0) return { startH: DAY_START_H, endH: DAY_END_H };
-  let minM = Infinity;
-  let maxM = -Infinity;
+  const floor = DAY_START_H;
+  if (entries.length === 0) return { startH: floor, endH: DAY_END_H };
+  let maxM = floor * 60;
   for (const e of entries) {
-    minM = Math.min(minM, parseMinutes(e.startTime));
     maxM = Math.max(maxM, parseMinutes(e.endTime));
   }
-  const startH = Math.min(DAY_START_H, Math.max(7, Math.floor(minM / 60)));
-  const endH = Math.max(DAY_END_H, Math.min(22, Math.ceil(maxM / 60)));
-  return { startH, endH: Math.max(startH + 1, endH) };
+  const endH = Math.max(DAY_END_H, Math.min(23, Math.ceil(maxM / 60)));
+  return { startH: floor, endH: Math.max(floor + 1, endH) };
+}
+
+/** Place les cours qui se chevauchent côte à côte (pas l’un sur l’autre). */
+function layoutDayEntries<T extends ScheduleAgendaEntryBase>(
+  dayEntries: T[],
+  gridStartMin: number,
+): LaidOut<T>[] {
+  const visible = dayEntries
+    .map((entry) => {
+      let startMin = parseMinutes(entry.startTime);
+      let endMin = parseMinutes(entry.endTime);
+      if (endMin <= gridStartMin) return null;
+      if (startMin < gridStartMin) startMin = gridStartMin;
+      if (endMin <= startMin) return null;
+      return { entry, startMin, endMin };
+    })
+    .filter((x): x is { entry: T; startMin: number; endMin: number } => x !== null)
+    .sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
+
+  const withCol: (typeof visible[number] & { col: number })[] = [];
+  const active: { endMin: number; col: number }[] = [];
+
+  for (const item of visible) {
+    for (let i = active.length - 1; i >= 0; i--) {
+      if (active[i].endMin <= item.startMin) active.splice(i, 1);
+    }
+    const used = new Set(active.map((a) => a.col));
+    let col = 0;
+    while (used.has(col)) col += 1;
+    active.push({ endMin: item.endMin, col });
+    withCol.push({ ...item, col });
+  }
+
+  // Pour chaque cluster qui se chevauche, même colCount
+  const result: LaidOut<T>[] = withCol.map((item) => {
+    const overlapping = withCol.filter(
+      (o) => o.startMin < item.endMin && o.endMin > item.startMin,
+    );
+    const colCount = Math.max(1, ...overlapping.map((o) => o.col + 1));
+    return {
+      entry: item.entry,
+      startMin: item.startMin,
+      endMin: item.endMin,
+      col: item.col,
+      colCount,
+    };
+  });
+
+  // Uniformiser le colCount dans chaque groupe qui se touche
+  for (const item of result) {
+    const group = result.filter(
+      (o) => o.startMin < item.endMin && o.endMin > item.startMin,
+    );
+    const maxCols = Math.max(...group.map((g) => g.colCount));
+    for (const g of group) g.colCount = maxCols;
+  }
+
+  return result;
 }
 
 export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
@@ -166,6 +232,7 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
   const { startH, endH } = hourRange(entries);
   const hours = Array.from({ length: endH - startH }, (_, i) => startH + i);
   const startMin = startH * 60;
+  const rowPx = compact ? 80 : ROW_PX;
 
   const entriesByDay = new Map<number, T[]>();
   for (const e of entries) {
@@ -178,19 +245,19 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
     entries.some((e) => s.test.test(courseName(e))),
   );
 
-  const rowPx = compact ? 52 : ROW_PX;
-
   return (
     <div className="schedule-agenda space-y-4" data-schedule-agenda>
+      <p className="text-xs text-navy/55 print:hidden">
+        Affichage après-midi / soirée (à partir de 14h) — blocs agrandis pour une meilleure lecture.
+      </p>
       <div className="overflow-x-auto rounded-2xl border border-zinc-200 bg-white shadow-sm print:shadow-none">
         <div
-          className="min-w-[720px]"
+          className="min-w-[860px]"
           style={{
             display: "grid",
-            gridTemplateColumns: `56px repeat(${columns.length}, minmax(100px, 1fr))`,
+            gridTemplateColumns: `64px repeat(${columns.length}, minmax(120px, 1fr))`,
           }}
         >
-          {/* Header */}
           <div className="border-b border-zinc-200 bg-zinc-50 px-2 py-3 text-center text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
             Heure
           </div>
@@ -203,7 +270,6 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
             </div>
           ))}
 
-          {/* Time gutter */}
           <div
             className="relative border-zinc-100 bg-zinc-50/80"
             style={{ height: hours.length * rowPx }}
@@ -211,7 +277,7 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
             {hours.map((h) => (
               <div
                 key={h}
-                className="absolute right-0 left-0 flex items-start justify-end border-b border-zinc-100 pr-2 pt-1 text-[11px] font-semibold tabular-nums text-zinc-500"
+                className="absolute right-0 left-0 flex items-start justify-end border-b border-zinc-100 pr-2 pt-2 text-xs font-bold tabular-nums text-zinc-600"
                 style={{ top: (h - startH) * rowPx, height: rowPx }}
               >
                 {String(h).padStart(2, "0")}:00
@@ -219,9 +285,8 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
             ))}
           </div>
 
-          {/* Day columns */}
           {columns.map((col) => {
-            const dayEntries = entriesByDay.get(col.weekday) ?? [];
+            const laidOut = layoutDayEntries(entriesByDay.get(col.weekday) ?? [], startMin);
             return (
               <div
                 key={col.weekday}
@@ -233,43 +298,45 @@ export function ScheduleWeekAgenda<T extends ScheduleAgendaEntryBase>({
                     key={`${col.weekday}-${h}`}
                     className="absolute inset-x-0 border-b border-zinc-100"
                     style={{ top: (h - startH) * rowPx, height: rowPx }}
-                  >
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-zinc-200">
-                      —
-                    </span>
-                  </div>
+                  />
                 ))}
 
-                {dayEntries.map((e) => {
-                  const s = parseMinutes(e.startTime);
-                  const en = parseMinutes(e.endTime);
+                {laidOut.map(({ entry: e, startMin: s, endMin: en, col: lane, colCount }) => {
                   const top = ((s - startMin) / 60) * rowPx;
-                  const height = Math.max(((en - s) / 60) * rowPx - 4, rowPx * 0.7);
+                  const height = Math.max(((en - s) / 60) * rowPx - 6, rowPx * 0.85);
                   const name = courseName(e);
                   const tone = subjectTone(name);
                   const prof =
                     getProfessorName?.(e) ?? e.professeur?.name?.trim() ?? null;
                   const extra = getMeta?.(e) ?? null;
                   const level = e.groupe?.trim() || extra || null;
+                  const widthPct = 100 / colCount;
+                  const leftPct = lane * widthPct;
 
                   return (
                     <article
                       key={e.id}
-                      className={`absolute inset-x-1 z-[1] overflow-hidden rounded-lg border px-2 py-1.5 shadow-sm ${tone.bg} ${tone.border} ${tone.text}`}
-                      style={{ top: top + 2, height }}
+                      className={`absolute z-[1] overflow-hidden rounded-xl border-2 px-2.5 py-2 shadow-md ${tone.bg} ${tone.border} ${tone.text}`}
+                      style={{
+                        top: top + 3,
+                        height,
+                        left: `calc(${leftPct}% + 3px)`,
+                        width: `calc(${widthPct}% - 6px)`,
+                      }}
                       title={`${formatTime(e.startTime)}–${formatTime(e.endTime)} · ${name}`}
                     >
-                      <p className="truncate text-[12px] font-bold leading-tight">{name}</p>
+                      <p className="text-[11px] font-bold tabular-nums opacity-80">
+                        {formatTime(e.startTime)} – {formatTime(e.endTime)}
+                      </p>
+                      <p className="mt-0.5 text-sm font-extrabold leading-snug">{name}</p>
                       {level ? (
-                        <p className="truncate text-[10px] font-medium opacity-80">{level}</p>
+                        <p className="mt-0.5 text-xs font-semibold opacity-85">{level}</p>
                       ) : null}
                       {prof ? (
-                        <p className="mt-0.5 truncate text-[10px] opacity-75">
-                          Prof. {prof}
-                        </p>
+                        <p className="mt-1 text-xs font-medium opacity-80">Prof. {prof}</p>
                       ) : null}
                       {e.room?.trim() ? (
-                        <p className="truncate text-[10px] opacity-70">{e.room}</p>
+                        <p className="text-xs opacity-70">Salle {e.room}</p>
                       ) : null}
                       {renderBlockFooter ? (
                         <div className="mt-1 print:hidden">{renderBlockFooter(e)}</div>
