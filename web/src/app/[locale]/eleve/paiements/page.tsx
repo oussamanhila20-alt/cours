@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { PaymentStatusBadge } from "@/components/payment-status-badge";
+import { Link } from "@/i18n/navigation";
 import { formatDh } from "@/lib/format-currency-ma";
 import {
   formatPaymentPeriod,
@@ -87,12 +88,20 @@ export default async function ElevePaiementsPage() {
                 <p className="text-lg font-bold tabular-nums text-navy">
                   {formatDh(row.payment.amount)}
                 </p>
-                <a
-                  href={`/api/paiements/${row.payment.id}/pdf`}
-                  className="inline-flex min-h-10 items-center rounded-full bg-navy px-4 text-xs font-semibold text-white"
-                >
-                  Télécharger PDF
-                </a>
+                <div className="flex flex-wrap gap-2">
+                  <Link
+                    href={`/imprimer/recu/${row.payment.id}`}
+                    className="inline-flex min-h-10 items-center rounded-full bg-navy px-4 text-xs font-semibold text-white"
+                  >
+                    Imprimer le reçu
+                  </Link>
+                  <a
+                    href={`/api/paiements/${row.payment.id}/pdf`}
+                    className="inline-flex min-h-10 items-center rounded-full border border-navy px-4 text-xs font-semibold text-navy"
+                  >
+                    Télécharger PDF
+                  </a>
+                </div>
               </div>
             ) : null}
           </li>

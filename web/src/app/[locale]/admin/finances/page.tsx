@@ -223,9 +223,15 @@ export default async function AdminFinancesPage({ searchParams }: Props) {
                     {formatDh(p.amount)}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
+                    <Link
+                      href={`/imprimer/recu/${p.id}`}
+                      className="inline-flex min-h-10 items-center rounded-full bg-navy px-4 text-xs font-semibold text-white"
+                    >
+                      Imprimer le reçu
+                    </Link>
                     <a
                       href={`/api/paiements/${p.id}/pdf`}
-                      className="inline-flex min-h-10 items-center rounded-full bg-navy px-4 text-xs font-semibold text-white"
+                      className="inline-flex min-h-10 items-center rounded-full border border-navy px-4 text-xs font-semibold text-navy"
                     >
                       Télécharger PDF
                     </a>

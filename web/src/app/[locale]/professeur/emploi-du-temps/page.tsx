@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { ScheduleAgendaToolbar } from "@/components/schedule-agenda-toolbar";
 import { ScheduleWeekAgenda } from "@/components/schedule-week-agenda";
 import { prisma } from "@/lib/prisma";
 
@@ -29,8 +30,9 @@ export default async function ProfesseurEmploiDuTempsPage() {
   );
 
   return (
-    <div className="space-y-10">
-      <section className="brand-card p-5 sm:p-6">
+    <div className="schedule-print-root space-y-10">
+      <ScheduleAgendaToolbar title="Emploi du temps" />
+      <section className="brand-card p-5 sm:p-6 print:hidden">
         <div className="brand-card-inner">
           <h3 className="brand-section-title">Mes affectations</h3>
           <p className="brand-section-subtitle mt-2">

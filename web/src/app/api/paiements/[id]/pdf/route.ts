@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { parseEnrollmentSubjectsJson } from "@/lib/format-student-enrollment";
 import { prisma } from "@/lib/prisma";
 import { formatPaymentPeriod } from "@/lib/payment-period";
 import { buildPaymentReceiptPdf } from "@/lib/payment-receipt-pdf";
@@ -23,6 +24,8 @@ export async function GET(
           email: true,
           groupe: true,
           anneeScolaire: true,
+          enrollmentSubjectsJson: true,
+          group: { select: { matiere: true } },
         },
       },
     },
@@ -35,6 +38,14 @@ export async function GET(
   const isAdmin = session.user.role === "ADMIN";
   if (!isOwner && !isAdmin) {
     return new NextResponse("Non autorisé", { status: 403 });
+  }
+
+  const subjects = parseEnrollmentSubjectsJson(
+    payment.student.enrollmentSubjectsJson,
+  );
+  const subjectNames = subjects.map((s) => s.name);
+  if (payment.student.group?.matiere) {
+    subjectNames.push(payment.student.group.matiere);
   }
 
   const bytes = buildPaymentReceiptPdf({
@@ -50,6 +61,7 @@ export async function GET(
     label: payment.label,
     paidAt: payment.paidAt,
     note: payment.note,
+    subjectNames,
   });
 
   const period = formatPaymentPeriod(payment.periodMonth, payment.periodYear)

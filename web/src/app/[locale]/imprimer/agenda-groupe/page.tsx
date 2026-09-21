@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { ScheduleAgendaToolbar } from "@/components/schedule-agenda-toolbar";
 import { ScheduleWeekAgenda } from "@/components/schedule-week-agenda";
 import { prisma } from "@/lib/prisma";
 
@@ -20,17 +21,21 @@ export default async function ImprimerAgendaGroupePage({ searchParams }: Props) 
   });
 
   return (
-    <main className="mx-auto max-w-4xl p-6 print:p-2">
-      <div className="rounded-xl border border-zinc-200 p-6 print:border-0">
-        <h1 className="text-2xl font-bold text-navy">Agenda du groupe {groupe}</h1>
-        <p className="mt-1 text-sm text-zinc-600">Année scolaire: {annee ?? "Toutes"}</p>
+    <main className="schedule-print-root mx-auto max-w-6xl bg-zinc-100 p-4 print:max-w-none print:bg-white print:p-0">
+      <style>{`@media print { @page { size: A4 landscape; margin: 10mm; } }`}</style>
+      <ScheduleAgendaToolbar title={`Emploi du temps — ${groupe}`} />
+      <div className="rounded-2xl border border-zinc-200 bg-white p-4 print:border-0 print:p-0">
+        <div className="mb-4 print:mb-2">
+          <h1 className="text-xl font-bold text-navy">Centre Bêta — Agenda {groupe}</h1>
+          <p className="text-sm text-zinc-600">
+            Année scolaire : {annee ?? "Toutes"}
+          </p>
+        </div>
 
         {entries.length === 0 ? (
-          <p className="mt-6 text-sm text-zinc-500">Aucun créneau trouvé pour ce filtre.</p>
+          <p className="text-sm text-zinc-500">Aucun créneau trouvé pour ce filtre.</p>
         ) : (
-          <div className="mt-6 print:mt-4">
-            <ScheduleWeekAgenda dayLabelStyle="long" entries={entries} />
-          </div>
+          <ScheduleWeekAgenda dayLabelStyle="short" entries={entries} />
         )}
       </div>
     </main>

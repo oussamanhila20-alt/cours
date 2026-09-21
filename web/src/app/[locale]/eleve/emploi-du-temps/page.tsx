@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { ScheduleAgendaToolbar } from "@/components/schedule-agenda-toolbar";
 import { ScheduleWeekAgenda } from "@/components/schedule-week-agenda";
 import { andClauseSchedulePourEleve } from "@/lib/eleve-visibility";
 import { prisma } from "@/lib/prisma";
@@ -27,16 +28,18 @@ export default async function EleveEmploiDuTempsPage() {
   });
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-navy/70">
-        Séances correspondant à votre classe et à votre année scolaire (profil), ou créneaux ouverts à tous.
+    <div className="schedule-print-root space-y-4">
+      <ScheduleAgendaToolbar title="Emploi du temps" />
+      <p className="text-sm text-navy/70 print:hidden">
+        Séances correspondant à votre classe et à votre année scolaire (profil), ou créneaux ouverts à
+        tous.
       </p>
       {entries.length === 0 ? (
         <div className="rounded-xl border border-dashed border-gold/40 bg-white p-8 text-center text-sm text-navy/70">
           Emploi du temps non renseigné.
         </div>
       ) : (
-        <ScheduleWeekAgenda entries={entries} />
+        <ScheduleWeekAgenda entries={entries} dayLabelStyle="short" />
       )}
     </div>
   );

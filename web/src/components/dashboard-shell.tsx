@@ -67,7 +67,7 @@ export function DashboardShell({
 
   return (
     <div className="flex min-h-full w-full min-w-0 max-w-full flex-col overflow-x-hidden">
-      <div className="sticky top-0 z-30 border-b border-gold/25 bg-white/95 px-3 py-2.5 backdrop-blur-md md:px-4">
+      <div className="sticky top-0 z-30 border-b border-gold/25 bg-white/95 px-3 py-2.5 backdrop-blur-md print:hidden md:px-4">
         <div className="mx-auto flex w-full min-w-0 max-w-6xl items-center gap-2">
           <button
             type="button"
@@ -111,7 +111,7 @@ export function DashboardShell({
         ) : null}
 
         <aside
-          className={`fixed inset-y-0 start-0 z-50 w-[min(18.5rem,86vw)] flex-col border-e border-gold/25 bg-white shadow-2xl md:static md:z-0 md:flex md:w-64 md:shadow-none ${asideAccent[accent]} ${
+          className={`fixed inset-y-0 start-0 z-50 w-[min(18.5rem,86vw)] flex-col border-e border-gold/25 bg-white shadow-2xl print:hidden md:static md:z-0 md:flex md:w-64 md:shadow-none ${asideAccent[accent]} ${
             open ? "flex" : "hidden md:flex"
           }`}
         >
@@ -138,7 +138,7 @@ export function DashboardShell({
 
         <div className="flex min-w-0 max-w-full flex-1 flex-col overflow-x-hidden bg-[var(--background)]">
           <header
-            className={`relative overflow-hidden border-b border-navy/10 bg-gradient-to-br px-4 py-5 md:px-6 md:py-7 ${headerAccent[accent]}`}
+            className={`relative overflow-hidden border-b border-navy/10 bg-gradient-to-br px-4 py-5 print:hidden md:px-6 md:py-7 ${headerAccent[accent]}`}
           >
             <h1 className="text-xl font-extrabold tracking-tight break-words text-navy md:text-[1.65rem]">
               {title}

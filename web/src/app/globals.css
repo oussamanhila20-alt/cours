@@ -395,3 +395,42 @@ button {
       radial-gradient(circle at 100% 0%, rgba(196, 160, 216, 0.16), transparent 38%);
   }
 }
+
+.inscription-receipt {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  .inscription-receipt-print {
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .inscription-receipt-print .inscription-receipt {
+    min-height: 100vh;
+    box-shadow: none !important;
+  }
+
+  .schedule-print-root {
+    background: #fff !important;
+  }
+
+  .schedule-agenda,
+  .schedule-agenda * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .dashboard-shell aside,
+  .dashboard-shell nav,
+  header,
+  footer {
+    display: none !important;
+  }
+}

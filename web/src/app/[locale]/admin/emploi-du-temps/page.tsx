@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { createScheduleEntryAction } from "@/actions/schedule";
+import { ScheduleAgendaToolbar } from "@/components/schedule-agenda-toolbar";
 import { ScheduleWeekAgenda } from "@/components/schedule-week-agenda";
 import { prisma } from "@/lib/prisma";
 import { MATIERES, NIVEAUX } from "@/lib/course-taxonomy";
@@ -50,8 +51,9 @@ export default async function AdminEmploiDuTempsPage() {
     .sort((a, b) => `${a.groupe}${a.annee}`.localeCompare(`${b.groupe}${b.annee}`));
 
   return (
-    <div className="space-y-6">
-      <p className="text-sm text-navy/70">
+    <div className="schedule-print-root space-y-6">
+      <ScheduleAgendaToolbar title="Emploi du temps" />
+      <p className="text-sm text-navy/70 print:hidden">
         <Link href="/admin" className="text-navy hover:underline dark:text-gold">
           ← Tableau de bord
         </Link>
@@ -65,7 +67,7 @@ export default async function AdminEmploiDuTempsPage() {
       </p>
 
       {groupsForPrint.length > 0 ? (
-        <section className="rounded-xl border border-gold/30 bg-white p-4">
+        <section className="rounded-xl border border-gold/30 bg-white p-4 print:hidden">
           <h3 className="text-base font-semibold">Impression des agendas par groupe</h3>
           <div className="mt-3 flex flex-wrap gap-2">
             {groupsForPrint.map((g) => (
@@ -85,7 +87,7 @@ export default async function AdminEmploiDuTempsPage() {
 
       <form
         action={createScheduleEntryAction}
-        className="flex flex-wrap items-end gap-3 rounded-xl border border-gold/30 bg-white p-4"
+        className="flex flex-wrap items-end gap-3 rounded-xl border border-gold/30 bg-white p-4 print:hidden"
       >
         <label className="flex flex-col gap-1 text-xs">
           Titre
